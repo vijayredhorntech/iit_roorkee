@@ -101,7 +101,7 @@
 <div class="flex w-full ">
   <div id="sideBarDiv" class="z-20 w-72 p-4 h-[100vh] bg-primary overflow-x-hidden overflow-y-auto flex-none xl:static lg:static absolute top-0 left-0 xl:block lg:block hidden ">
     <div class="w-full flex flex-col justify-center items-center border-b-[1px] pb-2 border-b-gray-100/20 shadow-lg shadow-gray-700/10">
-        <img src="assets/images/whiteLogo.png" class="h-32 w-auto" alt="Cloud Travel">
+        <img src="{{asset('assets/images/whiteLogo.png')}}" class="h-32 w-auto" alt="Cloud Travel">
         <span class="font-semibold text-white/80 mt-2 text-2xl">IIT ROORKEE</span>
         <p class="text-primaryLight text-xs" ><i class="fa-solid fa-flask mr-1"></i>
            Department of Biological Science
@@ -122,207 +122,158 @@
         <!-- PI Section -->
         <div class="cursor-pointer group">
                     <div onclick="document.getElementById('piDiv').classList.toggle('hidden');document.getElementById('studentArrow').classList.toggle('-rotate-90')"
-                        class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        class="{{request()->is('pi/*') ?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                         <div class="flex items-center">
                             <i class="fa fa-user mr-2 text-sm"></i>
                             <span class="text-lg font-medium">Principle Investigator</span>
                         </div>
                         <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                        <i id="studentArrow" class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] right-0 z-10"></i>
+                        <i class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] z-10 right-0"></i>
                     </div>
-                    <ul id="piDiv" class="pl-10 mt-2 flex flex-col hidden">
-                        <a href="{{route('create_pi')}}"><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                    <ul id="piDiv" class="pl-10 mt-2 flex flex-col gap-2 hidden">
+                        <a href="{{route('create_pi')}}"><li class="{{request()->is('pi/create_pi') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
                             <div class="flex items-center">
                                 <i class="fa fa-plus mr-2 text-sm"></i>
                                 <span class="text-lg font-medium">Create</span>
                             </div>
                             <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                        </li></a>
-                        <a href="{{route('pi_list')}}"><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                            <div class="flex items-center">
-                                <i class="fa fa-eye mr-2 text-sm"></i>
-                                <span class="text-lg font-medium">View</span>
-                            </div>
-                            <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                        </li></a>
+                        </li>
+                        </a>
+                        <a href="{{route('pi_list')}}"><li class="{{request()->is('pi/pi_list') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                                <div class="flex items-center">
+                                    <i class="fa fa-eye mr-2 text-sm"></i>
+                                    <span class="text-lg font-medium">View</span>
+                                </div>
+                                <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                            </li>
+                        </a>
                     </ul>
                 </div>
 
         <!-- Student Section -->
         <div class="cursor-pointer group">
             <div onclick="document.getElementById('studentDiv').classList.toggle('hidden');document.getElementById('studentArrow').classList.toggle('-rotate-90')"
-                 class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                 class="{{request()->is('student/*') ?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
                     <i class="fa fa-user-graduate mr-2 text-sm"></i>
-                    <span class="text-lg font-medium">Student</span>
+                    <span class="text-lg font-medium">Students</span>
                 </div>
                 <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                <i id="studentArrow" class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] right-0 z-10"></i>
+                <i class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] z-10 right-0"></i>
             </div>
-            <ul id="studentDiv" class="pl-10 mt-2 flex flex-col hidden">
-                <a href="{{route('create_student')}}"><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                    <div class="flex items-center">
-                        <i class="fa fa-plus mr-2 text-sm"></i>
-                        <span class="text-lg font-medium">Create</span>
-                    </div>
-                    <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                </li></a>
-                <a href="{{route('student_list')}}"><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                    <div class="flex items-center">
-                        <i class="fa fa-eye mr-2 text-sm"></i>
-                        <span class="text-lg font-medium">View</span>
-                    </div>
-                    <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                </li></a>
+            <ul id="studentDiv" class="pl-10 mt-2 flex flex-col gap-2 hidden">
+                <a href="{{route('create_student')}}"><li class="{{request()->is('student/create_student') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-plus mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">Create</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
+                <a href="{{route('student_list')}}"><li class="{{request()->is('student/student_list') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-eye mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">View</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
             </ul>
         </div>
 
-           <!-- Lab Section -->
-           <div class="cursor-pointer group">
+        <!-- Lab Section -->
+        <div class="cursor-pointer group">
             <div onclick="document.getElementById('labDiv').classList.toggle('hidden');document.getElementById('studentArrow').classList.toggle('-rotate-90')"
-                 class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                 class="{{request()->is('lab/*') ?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
                     <i class="fa-solid fa-flask mr-2 text-sm"></i>
-                    <span class="text-lg font-medium">Labs</span>
+                    <span class="text-lg font-medium">Lab</span>
                 </div>
                 <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                <i id="studentArrow" class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] right-0 z-10"></i>
+                <i class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] z-10 right-0"></i>
             </div>
-            <ul id="labDiv" class="pl-10 mt-2 flex flex-col hidden">
-                <a href="{{route('create_lab')}}"><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                    <div class="flex items-center">
-                        <i class="fa fa-plus mr-2 text-sm"></i>
-                        <span class="text-lg font-medium">Create</span>
-                    </div>
-                    <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                </li></a>
-                <a href="{{route('lab_list')}}"><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                    <div class="flex items-center">
-                        <i class="fa fa-eye mr-2 text-sm"></i>
-                        <span class="text-lg font-medium">View</span>
-                    </div>
-                    <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                </li></a>
+            <ul id="labDiv" class="pl-10 mt-2 flex flex-col gap-2 hidden">
+                <a href="{{route('create_lab')}}"><li class="{{request()->is('lab/create_lab') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-plus mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">Create</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
+                <a href="{{route('lab_list')}}"><li class="{{request()->is('lab/lab_list') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-eye mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">View</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
             </ul>
         </div>
 
         <!-- Category Section -->
         <div class="cursor-pointer group">
-            <div onclick="document.getElementById('categoryDiv').classList.toggle('hidden');document.getElementById('categoryArrow').classList.toggle('-rotate-90')"
-                 class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+            <div onclick="document.getElementById('instrumentCategoryList').classList.toggle('hidden');document.getElementById('studentArrow').classList.toggle('-rotate-90')"
+                 class="{{request()->is('instrument_category/*') ?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
                     <i class="fa fa-list mr-2 text-sm"></i>
-                    <span class="text-lg font-medium">Instrument Category</span>
+                    <span class="text-lg font-medium">Instruments Category</span>
                 </div>
                 <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                <i id="categoryArrow" class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] right-0 z-10"></i>
+                <i class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] z-10 right-0"></i>
             </div>
-            <ul id="categoryDiv" class="pl-10 mt-2 flex flex-col hidden">
-                <a href="{{route('create_instrument_category')}}"><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                    <div class="flex items-center">
-                        <i class="fa fa-plus mr-2 text-sm"></i>
-                        <span class="text-lg font-medium">Create</span>
-                    </div>
-                    <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                </li></a>
-                <a href="{{route('instrument_category_list')}}"><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                    <div class="flex items-center">
-                        <i class="fa fa-eye mr-2 text-sm"></i>
-                        <span class="text-lg font-medium">View</span>
-                    </div>
-                    <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                </li></a>
+            <ul id="instrumentCategoryList" class="pl-10 mt-2 flex flex-col gap-2 hidden">
+                <a href="{{route('create_instrument_category')}}"><li class="{{request()->is('instrument_category/create_instrument_category') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-plus mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">Create</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
+                <a href="{{route('instrument_category_list')}}"><li class="{{request()->is('instrument_category/instrument_category_list') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-eye mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">View</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
             </ul>
         </div>
 
         <!-- Instruments Section -->
         <div class="cursor-pointer group">
-            <div onclick="document.getElementById('instrumentDiv').classList.toggle('hidden');document.getElementById('labArrow').classList.toggle('-rotate-90')"
-                 class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+            <div onclick="document.getElementById('instrumentDiv').classList.toggle('hidden');document.getElementById('studentArrow').classList.toggle('-rotate-90')"
+                 class="{{request()->is('instrument/*') ?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
                     <i class="fa fa-microscope mr-2 text-sm"></i>
                     <span class="text-lg font-medium">Instruments</span>
                 </div>
                 <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                <i id="labArrow" class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] right-0 z-10"></i>
+                <i class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] z-10 right-0"></i>
             </div>
             <ul id="instrumentDiv" class="pl-10 mt-2 flex flex-col gap-2 hidden">
-                <a href="{{route('create_instrument')}}"><li class=" {{Route::currentRouteName()==='login'?'bg-primaryLight/90 border-[2px] border-white text-primary':'bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
-                    <div class="flex items-center">
-                        <i class="fa fa-plus mr-2 text-sm"></i>
-                        <span class="text-lg font-medium">Create</span>
-                    </div>
-                    <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                </li></a>
-                <a href="{{route('instruments_list')}}"><li class=" {{Route::currentRouteName()==='login'?'bg-primaryLight/90 border-[2px] border-white text-primary':'bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
-                    <div class="flex items-center">
-                        <i class="fa fa-eye mr-2 text-sm"></i>
-                        <span class="text-lg font-medium">View</span>
-                    </div>
-                    <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                </li></a>
+                <a href="{{route('create_instrument')}}"><li class="{{request()->is('instrument/create_instrument') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-plus mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">Create</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
+                <a href="{{route('instrument_list')}}"><li class="{{request()->is('instrument/instrument_list') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-eye mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">View</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
             </ul>
         </div>
 
-        <!-- Admin Section -->
-        <div class="cursor-pointer group">
-            <div onclick="document.getElementById('adminDiv').classList.toggle('hidden');document.getElementById('adminArrow').classList.toggle('-rotate-90')"
-                 class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                <div class="flex items-center">
-                    <i class="fa fa-user-shield mr-2 text-sm"></i>
-                    <span class="text-lg font-medium">Admin</span>
-                </div>
-                <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                <i id="adminArrow" class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] right-0 z-10"></i>
-            </div>
-            <ul id="adminDiv" class="pl-10 mt-2 flex flex-col hidden">
-                <a href=""><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                    <div class="flex items-center">
-                        <i class="fa fa-plus mr-2 text-sm"></i>
-                        <span class="text-lg font-medium">Create</span>
-                    </div>
-                    <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                </li></a>
-                <a href=""><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                    <div class="flex items-center">
-                        <i class="fa fa-eye mr-2 text-sm"></i>
-                        <span class="text-lg font-medium">View</span>
-                    </div>
-                    <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                </li></a>
-            </ul>
-        </div>
-
-        <!-- Book Instrument Section -->
-        <div class="cursor-pointer group">
-            <div onclick="document.getElementById('bookingDiv').classList.toggle('hidden');document.getElementById('bookingArrow').classList.toggle('-rotate-90')"
-                 class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                <div class="flex items-center">
-                    <i class="fa fa-calendar-plus mr-2 text-sm"></i>
-                    <span class="text-lg font-medium">Book Instrument</span>
-                </div>
-                <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                <i id="bookingArrow" class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] right-0 z-10"></i>
-            </div>
-            <ul id="bookingDiv" class="pl-10 mt-2 flex flex-col hidden">
-                <a href=""><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                    <div class="flex items-center">
-                        <i class="fa fa-plus mr-2 text-sm"></i>
-                        <span class="text-lg font-medium">New Booking</span>
-                    </div>
-                    <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                </li></a>
-                <a href=""><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                    <div class="flex items-center">
-                        <i class="fa fa-eye mr-2 text-sm"></i>
-                        <span class="text-lg font-medium">View Bookings</span>
-                    </div>
-                    <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
-                </li></a>
-            </ul>
-        </div>
-
-        <!-- Role Link -->
         <a href="{{route('roles')}}">
             <div class=" {{Route::currentRouteName()==='roles'?'bg-primaryLight/90 border-[2px] border-white text-primary':'bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
@@ -343,17 +294,6 @@
                 <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
             </div>
         </a>
-
-        <!-- Settings link -->
-        <a href="">
-            <div class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
-                <div class="flex items-center">
-                    <i class="fa fa-gear mr-2 text-sm"></i>
-                    <span class="text-lg font-medium">Super Admin Settings</span>
-                </div>
-                <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"> </div>
-          </div>
-      </a>
     </div>
 
 
@@ -382,7 +322,7 @@
             <div class="rounded-full h-10 w-10 flex text-primary justify-center items-center hover:bg-primary/60 hover:text-white cursor-pointer transition ease-in duration-2000"><i class="fa fa-gear animate-spin" title="Search......"></i></div>
             <div class="flex items-center ̥gap-2 mx-4 cursor-pointer">
                 <div class="">
-                    <img src="assets/images/logo.png" class="w-auto h-10 rounded-full" alt="IIT Roorkee">
+                    <img src="{{asset('assets/images/logo.png')}}" class="w-auto h-10 rounded-full" alt="IIT Roorkee">
                 </div>
                 <div class="flex flex-col items-start justify-center ml-4">
                     <span class="text-primary text-sm font-semibold">Super Admin</span>
