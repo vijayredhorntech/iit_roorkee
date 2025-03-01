@@ -110,7 +110,7 @@
 
     <div class="w-full flex flex-col mt-12 gap-3">
         <a href="{{route('dashboard')}}">
-            <div class=" {{Route::currentRouteName()==='dashboard'?'bg-primaryLight/90 border-[2px] border-white text-primary':'bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
+            <div class=" {{Route::currentRouteName()==='dashboard'?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
                     <i class="fa fa-tv mr-2 text-sm"></i>
                     <span class="text-lg font-medium">Dashboard</span>
@@ -218,14 +218,14 @@
                 <i id="categoryArrow" class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] right-0 z-10"></i>
             </div>
             <ul id="categoryDiv" class="pl-10 mt-2 flex flex-col hidden">
-                <a href=""><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                <a href="{{route('create_instrument_category')}}"><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
                     <div class="flex items-center">
                         <i class="fa fa-plus mr-2 text-sm"></i>
                         <span class="text-lg font-medium">Create</span>
                     </div>
                     <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
                 </li></a>
-                <a href=""><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                <a href="{{route('instrument_category_list')}}"><li class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
                     <div class="flex items-center">
                         <i class="fa fa-eye mr-2 text-sm"></i>
                         <span class="text-lg font-medium">View</span>
@@ -323,22 +323,22 @@
         </div>
 
         <!-- Role Link -->
-        <a href="">
-            <div class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+        <a href="{{route('roles')}}">
+            <div class=" {{Route::currentRouteName()==='roles'?'bg-primaryLight/90 border-[2px] border-white text-primary':'bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
                     <i class="fa fa-user-tag mr-2 text-sm"></i>
-                    <span class="text-lg font-medium">Role</span>
+                    <span class="text-lg font-medium">Roles</span>
                 </div>
                 <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
             </div>
         </a>
-
         <!-- Permission Link -->
-        <a href="">
-            <div class="bg-primary text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+
+        <a href="{{route('permissions')}}">
+            <div class=" {{Route::currentRouteName()==='permissions'?'bg-primaryLight/90 border-[2px] border-white text-primary':'bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
                     <i class="fa fa-lock mr-2 text-sm"></i>
-                    <span class="text-lg font-medium">Permission</span>
+                    <span class="text-lg font-medium">Permissions</span>
                 </div>
                 <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
             </div>

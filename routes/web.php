@@ -27,3 +27,10 @@ Route::get('/view_student', function () { return view('viewstudent');})->name('v
 
 Route::get('/create_lab', function () { return view('createLab');})->name('create_lab');
 Route::get('/lab_list', function () { return view('labList');})->name('lab_list');
+
+Route::get('/create_instrument_category', function () { return view('createInstrumentCategory');})->name('create_instrument_category');
+Route::get('/instrument_category_list', function () { return view('instrumentCategoryList');})->name('instrument_category_list');
+
+Route::get('/roles', function () { return view('roles');})->name('roles');
+Route::get('/permissions', function () { return view('permissions');})->name('permissions');
+
