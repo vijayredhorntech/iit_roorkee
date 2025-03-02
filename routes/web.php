@@ -49,4 +49,27 @@ Route::prefix('booking')->group(function () {
 
 Route::get('/roles', function () { return view('roles');})->name('roles');
 Route::get('/permissions', function () { return view('permissions');})->name('permissions');
+// Access Control Routes
+Route::prefix('access-control')->group(function () {
+    Route::get('/roles', function () { return view('roles');})->name('roles');
+    Route::get('/permissions', function () { return view('permissions');})->name('permissions');
+});
+
+// Service Management Routes
+Route::prefix('service')->group(function () {
+    Route::get('/maintenance_schedule', function () { return view('maintenanceSchedule');})->name('maintenance_schedule');
+    Route::get('/service_records', function () { return view('serviceRecords');})->name('service_records');
+});
+
+// Training Routes
+Route::prefix('training')->group(function () {
+    Route::get('/modules', function () { return view('trainingModules');})->name('training_modules');
+    Route::get('/certifications', function () { return view('certifications');})->name('certifications');
+});
+
+// Booking Management Routes
+Route::prefix('booking')->group(function () {
+    Route::get('/calendar', function () { return view('bookingCalendar');})->name('booking_calendar');
+    Route::get('/requests', function () { return view('bookingRequest');})->name('booking_requests');
+});
 

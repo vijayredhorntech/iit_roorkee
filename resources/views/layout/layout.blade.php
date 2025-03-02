@@ -283,26 +283,129 @@
             </div>
         </a>
 
-        <a href="{{route('roles')}}">
-            <div class=" {{Route::currentRouteName()==='roles'?'bg-primaryLight/90 border-[2px] border-white text-primary':'bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
+        <!-- Access Control Section -->
+        <div class="cursor-pointer group">
+            <div onclick="document.getElementById('accessControlDiv').classList.toggle('hidden');document.getElementById('accessControlArrow').classList.toggle('-rotate-90')"
+                 class="{{request()->is('access-control/*') ?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
-                    <i class="fa fa-user-tag mr-2 text-sm"></i>
-                    <span class="text-lg font-medium">Roles</span>
+                    <i class="fa fa-shield-alt mr-2 text-sm"></i>
+                    <span class="text-lg font-medium">Access Control</span>
                 </div>
                 <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                <i class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] z-10 right-0"></i>
             </div>
-        </a>
-        <!-- Permission Link -->
+            <ul id="accessControlDiv" class="pl-10 mt-2 flex flex-col gap-2 hidden">
+                <a href="{{route('roles')}}"><li class="{{Route::currentRouteName()==='roles' ? 'bg-primaryLight/10' : 'bg-primary'}} text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-user-tag mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">Roles</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
+                <a href="{{route('permissions')}}"><li class="{{Route::currentRouteName()==='permissions' ? 'bg-primaryLight/10' : 'bg-primary'}} text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-lock mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">Permissions</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
+            </ul>
+        </div>
 
-        <a href="{{route('permissions')}}">
-            <div class=" {{Route::currentRouteName()==='permissions'?'bg-primaryLight/90 border-[2px] border-white text-primary':'bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
+        <!-- Service Management Section -->
+        <div class="cursor-pointer group">
+            <div onclick="document.getElementById('serviceDiv').classList.toggle('hidden');document.getElementById('serviceArrow').classList.toggle('-rotate-90')"
+                 class="{{request()->is('service/*') ?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
-                    <i class="fa fa-lock mr-2 text-sm"></i>
-                    <span class="text-lg font-medium">Permissions</span>
+                    <i class="fa fa-wrench mr-2 text-sm"></i>
+                    <span class="text-lg font-medium">Service Management</span>
                 </div>
                 <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                <i class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] z-10 right-0"></i>
             </div>
-        </a>
+            <ul id="serviceDiv" class="pl-10 mt-2 flex flex-col gap-2 hidden">
+                <a href="{{route('maintenance_schedule')}}"><li class="{{request()->is('service/maintenance_schedule') ? 'bg-primaryLight/10' : 'bg-primary'}} text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-calendar-check mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">Maintenance Schedule</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
+                <a href="{{route('service_records')}}"><li class="{{request()->is('service/service_records') ? 'bg-primaryLight/10' : 'bg-primary'}} text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-clipboard-list mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">Service Records</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
+            </ul>
+        </div>
+
+        <!-- Training Section -->
+        <div class="cursor-pointer group">
+            <div onclick="document.getElementById('trainingDiv').classList.toggle('hidden');document.getElementById('trainingArrow').classList.toggle('-rotate-90')"
+                 class="{{request()->is('training/*') ?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
+                <div class="flex items-center">
+                    <i class="fa fa-graduation-cap mr-2 text-sm"></i>
+                    <span class="text-lg font-medium">Training</span>
+                </div>
+                <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                <i class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] z-10 right-0"></i>
+            </div>
+            <ul id="trainingDiv" class="pl-10 mt-2 flex flex-col gap-2 hidden">
+                <a href="{{route('training_modules')}}"><li class="{{request()->is('training/modules') ? 'bg-primaryLight/10' : 'bg-primary'}} text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-book mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">Training Modules</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
+                <a href="{{route('certifications')}}"><li class="{{request()->is('training/certifications') ? 'bg-primaryLight/10' : 'bg-primary'}} text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-certificate mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">Certifications</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
+            </ul>
+        </div>
+
+        <!-- Booking Management Section -->
+        <div class="cursor-pointer group">
+            <div onclick="document.getElementById('bookingDiv').classList.toggle('hidden');document.getElementById('bookingArrow').classList.toggle('-rotate-90')"
+                 class="{{request()->is('booking/*') ?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
+                <div class="flex items-center">
+                    <i class="fa fa-calendar mr-2 text-sm"></i>
+                    <span class="text-lg font-medium">Booking Management</span>
+                </div>
+                <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                <i class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] z-10 right-0"></i>
+            </div>
+            <ul id="bookingDiv" class="pl-10 mt-2 flex flex-col gap-2 hidden">
+                <a href="{{route('booking_calendar')}}"><li class="{{request()->is('booking/calendar') ? 'bg-primaryLight/10' : 'bg-primary'}} text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-calendar-alt mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">Calendar</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
+                <a href="{{route('booking_requests')}}"><li class="{{request()->is('booking/requests') ? 'bg-primaryLight/10' : 'bg-primary'}} text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <div class="flex items-center">
+                            <i class="fa fa-clock mr-2 text-sm"></i>
+                            <span class="text-lg font-medium">Requests</span>
+                        </div>
+                        <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+                    </li>
+                </a>
+            </ul>
+        </div>
     </div>
 
 
