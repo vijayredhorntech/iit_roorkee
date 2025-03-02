@@ -39,8 +39,14 @@ Route::prefix('lab')->group(function () {
 Route::prefix('instrument_category')->group(function () {
     Route::get('/create_instrument_category', function () { return view('createInstrumentCategory');})->name('create_instrument_category');
     Route::get('/instrument_category_list', function () { return view('instrumentCategoryList');})->name('instrument_category_list');
-
 });
+
+
+Route::prefix('booking')->group(function () {
+    Route::get('/book_instrument', function () { return view('bookInstrument');})->name('book_instrument');
+});
+
+
 Route::get('/roles', function () { return view('roles');})->name('roles');
 Route::get('/permissions', function () { return view('permissions');})->name('permissions');
 
