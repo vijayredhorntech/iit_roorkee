@@ -28,7 +28,7 @@ Route::prefix('pi')->group(function () {
 Route::prefix('student')->group(function () {
     Route::get('/create_student', function () { return view('createStudent');})->name('create_student');
     Route::get('/student_list', function () { return view('studentList');})->name('student_list');
-    Route::get('/view_student', function () { return view('viewstudent');})->name('view_student');
+    Route::get('/view_student_dashboard', function () { return view('viewStudentDashboard');})->name('view_student_dashboard');
 });
 
 Route::prefix('lab')->group(function () {
