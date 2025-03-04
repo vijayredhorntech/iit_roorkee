@@ -8,6 +8,9 @@ use App\Http\Controllers\Superadmin\PIController;
 use App\Http\Controllers\PI\AccessPIController;
 use App\Http\Controllers\Superadmin\StudentController;
 use App\Http\Controllers\Student\AccessStudentController;
+use App\Http\Controllers\Superadmin\LabController;
+use App\Http\Controllers\Superadmin\InstrumentsController;
+
 
 
 
@@ -24,6 +27,9 @@ Route::controller(LoginController::class)->group(function () {
 
 Route::prefix('super-admin')->group(function () {
 
+
+     /******Super admin PI  route ********/
+
     Route::controller(PIController::class)->group(function () {
         Route::get('/pi', 'hs_picreste')->name('pi_create');
         Route::post('/pistore', 'hs_pistore')->name('pi_store');
@@ -31,6 +37,8 @@ Route::prefix('super-admin')->group(function () {
         Route::get('/view_pi/{id}','hs_viewpi')->name('view_pi.details');
     });
 
+
+     /******Super admin Student route ********/
 
     Route::controller(StudentController::class)->group(function () {
         Route::get('/create_student', 'hs_createstudent')->name('superadmin.create_student');
@@ -41,11 +49,37 @@ Route::prefix('super-admin')->group(function () {
     });
 
 
+     /******Super admin Lab   route ********/
+
+     Route::controller(LabController::class)->group(function () {
+
+        Route::get('/create_lab','hs_labcreate')->name('superadmin.create_lab');
+        Route::get('/lab_list', 'hs_lablist')->name('superadmin.lab_list');
+        Route::post('/lab_store', 'hs_labstore')->name('superadmin.lab_store');
+    });
+
+
+
+    /******Super admin InstrumentsController  route ********/
+    Route::controller(InstrumentsController::class)->group(function () {
+        Route::get('/create_instrument', 'hs_create_instrumentcategory')->name('superadmin.create_instrumentcategory');
+        Route::post('/store_categories','hs_store_categories')->name('superadmin.storeinstrumentcategory');
+        Route::get('/instrument_category_list','hs_instrument_categorieslist')->name('superadmin.categorylist');
+
+        
+    });
+    
+
+    
+
+
     
 
 });
 
 
+
+/******All Pi Route  ********/
 
 Route::prefix('pi')->group(function () {
     Route::controller(AccessPIController::class)->group(function () {
@@ -56,6 +90,8 @@ Route::prefix('pi')->group(function () {
     });
 });
 
+
+/******All Student  Route  ********/
 
 Route::prefix('student')->group(function () {
     Route::controller(AccessStudentController::class)->group(function () {
@@ -68,7 +104,7 @@ Route::prefix('student')->group(function () {
 
 
 
-
+/***** Remove bellow  route after completed ********/
 
 // Route::get('/pidashboard', function () { return view('pi.dashboard');})->name('pidashboard');
 
