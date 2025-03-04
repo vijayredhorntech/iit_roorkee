@@ -1,13 +1,51 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\Superadmin\PIController;
 
-Route::get('/', function () { return view('login');});
+
+
+// Route::get('/', function () { return view('login');});
+/*******Auth login route*******/
+
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/', 'showLoginForm')->middleware(AuthMiddleware::class)->name('login');
+    Route::post('/login', 'auth_login')->name('auth.login');
+    Route::get('/logout', 'auth_logout')->name('logout');
+});
+
+
+
+Route::prefix('super-admin')->group(function () {
+
+    Route::controller(PIController::class)->group(function () {
+        Route::get('/pi', 'hs_picreste')->name('pi_create');
+        Route::post('/pistore', 'hs_pistore')->name('pi_store');
+        Route::get('/view_pi','hs_viewallpi')->name('alldetails_pi');
+        Route::get('/view_pi/{id}','hs_viewpi')->name('view_pi.details');
+
+    });
+});
+
+
+
+
+
+
+/****Route pi*******/
+Route::get('/pidashboard', function () { return view('pi.dashboard');})->name('pidashboard');
+
+/****Route student*******/
+Route::get('/studentdashboard', function () { return view('student.dashboard');})->name('studentdashboard');
+
 Route::get('/forget_password', function () { return view('forgetPassword');})->name('forget_password');
 Route::get('/password_link_sent', function () { return view('passwordLinkSent');})->name('password_link_sent');
 
 
-Route::get('/dashboard', function () { return view('dashboard');})->name('dashboard');
+Route::get('/dashboard', function () { return view('superadmin.dashboard');})->middleware(AdminMiddleware::class)->name('dashboard');
 
 
 Route::prefix('instrument')->group(function () {

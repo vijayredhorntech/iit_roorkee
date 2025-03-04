@@ -1,4 +1,4 @@
-@extends('layout.layout')
+@extends('superadmin.layout.layout')
 @section('content')
 <div class="w-full grid xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-2">
             <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-primary bg-white flex gap-2 items-center justify-between p-4">

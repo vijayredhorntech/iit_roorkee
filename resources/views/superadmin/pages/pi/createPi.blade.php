@@ -1,4 +1,4 @@
-@extends('layout.layout')
+@extends('superadmin.layout.layout')
 @section('content')
 <div class="w-full border-[1px] border-t-[4px] border-primary/20 border-t-primary bg-white flex gap-2 flex-col shadow-lg shadow-gray-300">
 
@@ -7,8 +7,8 @@
     </div>
 
     <div id="formDiv" class="w-full border-b-[2px] border-b-ternary/10 shadow-lg shadow-ternary/20">
-        <form action="" method="POST" enctype="multipart/form-data">
-           
+     <form action="{{ route('pi_store') }}" method="POST" enctype="multipart/form-data">
+               @csrf
             <div class="w-full grid xl:grid-cols-4 gap-2 p-4">
             <div class="w-full flex flex-col gap-1">
                     <label class="font-semibold text-primary">Profile Photo</label>
@@ -16,7 +16,7 @@
                 </div>
                 <div class="w-full flex flex-col gap-1">
                     <label class="font-semibold text-primary">Title (Dr./Prof./etc.) <span class="text-danger">*</span></label>
-                    <select name="status" required class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
+                    <select name="title" required class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
                         <option value="">--- Select title ---</option>
                         <option value="Dr.">Dr.</option>
                         <option value="Prof.">Prof.</option>
@@ -34,26 +34,26 @@
                 </div>
                 <div class="w-full flex flex-col gap-1">
                     <label class="font-semibold text-primary">Department <span class="text-danger">*</span></label>
-                    <select name="status" required class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
+                    <select name="department" required class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
                         <option value="">--- Select department ---</option>
-                        <option value="available">Chemistry</option>
-                        <option value="unavailable">Physics</option>
-                        <option value="available">Mathematics</option>
-                        <option value="unavailable">Biology</option>
-                        <option value="available">Computer Science</option>
-                        <option value="unavailable">Engineering</option>
-                        <option value="available">Medicine</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Biology">Biology</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Medicine">Medicine</option>
                     </select>
                 </div>
                 <div class="w-full flex flex-col gap-1">
                     <label class="font-semibold text-primary">Designation/Position <span class="text-danger">*</span></label>
-                    <select name="status" required class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
+                    <select name="designation" required class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
                         <option value="">--- Select designation ---</option>
-                        <option value="1">Professor</option>
-                        <option value="2">Assistant Professor</option>
-                        <option value="3">Associate Professor</option>
-                        <option value="4">Lecturer</option>
-                        <option value="5">Senior Lecturer</option>
+                        <option value="Professor">Professor</option>
+                        <option value="Assistant Professor">Assistant Professor</option>
+                        <option value="Associate Professor">Associate Professor</option>
+                        <option value="Lecturer">Lecturer</option>
+                        <option value="Senior Lecturer">Senior Lecturer</option>
                     </select>
                 </div>
                 <div class="w-full flex flex-col gap-1">
@@ -86,30 +86,23 @@
                 </div>
                 <div class="w-full flex flex-col gap-1">
                     <label class="font-semibold text-primary">Academic Qualifications <span class="text-danger">*</span></label>
-                    <select name="status" required class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
+                    <select name="qualification" required class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
                         <option value="">--- Select qualification ---</option>
-                        <option value="1">Bachelor of Science</option>
-                        <option value="2">Bachelor of Arts</option>
-                        <option value="3">Bachelor of Science (Honours)</option>
-                        <option value="3">PhD</option>
-                        <option value="3">Master of Science</option>
-                        <option value="3">Master of Arts</option>
-                        <option value="3">Master of Science (Honours)</option>
-                        <option value="3">Other</option>
+                        <option value="Bachelor of Science">Bachelor of Science</option>
+                        <option value="Bachelor of Arts">Bachelor of Arts</option>
+                        <option value="Bachelor of Science (Honours)">Bachelor of Science (Honours)</option>
+                        <option value="PhD">PhD</option>
+                        <option value="Master of Science">Master of Science</option>
+                        <option value="Master of Arts">Master of Arts</option>
+                        <option value="Master of Science (Honours)">Master of Science (Honours)</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
                 <div class="w-full flex flex-col gap-1">
                     <label class="font-semibold text-primary">Date of Joining <span class="text-danger">*</span></label>
                     <input type="date" name="joining_date" required class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000"/>
                 </div>
-                <div class="w-full flex flex-col gap-1">
-                    <label class="font-semibold text-primary">Status <span class="text-danger">*</span></label>
-                    <select name="status" required class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
-                        <option value="">--- Select status ---</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                </div>
+             
             
             </div>
             <div class="w-full flex justify-end px-4 pb-4 gap-2">

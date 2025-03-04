@@ -45,4 +45,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    public function  pi(){
+        return $this->hasOne(PIUserMeta::class, 'pi_id','id');
+    }
+    
 }

@@ -131,7 +131,7 @@
                         <i class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] z-10 right-0"></i>
                     </div>
                     <ul id="piDiv" class="pl-10 mt-2 flex flex-col gap-2 hidden">
-                        <a href="{{route('pi_create')}}"><li class="{{request()->is('pi/pi_create') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <a href="{{route('pi_create')}}"><li class="{{request()->is('super-admin/pi_create') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
                             <div class="flex items-center">
                                 <i class="fa fa-plus mr-2 text-sm"></i>
                                 <span class="text-lg font-medium">Create</span>
@@ -139,7 +139,7 @@
                             <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
                         </li>
                         </a>
-                        <a href="{{route('pi_list')}}"><li class="{{request()->is('pi/pi_list') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                        <a href="{{route('alldetails_pi')}}"><li class="{{request()->is('super-admin/alldetails_pi') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
                                 <div class="flex items-center">
                                     <i class="fa fa-eye mr-2 text-sm"></i>
                                     <span class="text-lg font-medium">View</span>
