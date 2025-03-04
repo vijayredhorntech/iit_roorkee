@@ -133,7 +133,7 @@
                 <i class="fa-solid fa-chevron-down text-lg group-hover:hidden text-white/90 absolute top-[50%] -translate-y-[50%] z-10 right-0"></i>
             </div>
             <ul id="studentDiv" class="pl-10 mt-2 flex flex-col gap-2 hidden">
-                <a href="{{route('create_student')}}"><li class="{{request()->is('student/create_student') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                <a href="{{route('pi.create_student')}}"><li class="{{request()->is('pi/create_student') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
                         <div class="flex items-center">
                             <i class="fa fa-plus mr-2 text-sm"></i>
                             <span class="text-lg font-medium">Create</span>
@@ -141,7 +141,7 @@
                         <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
                     </li>
                 </a>
-                <a href="{{route('student_list')}}"><li class="{{request()->is('student/student_list') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                <a href="{{route('allpi_student')}}"><li class="{{request()->is('pi/studentview') ? 'bg-primaryLight/10' : 'bg-primary'}}   text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
                         <div class="flex items-center">
                             <i class="fa fa-eye mr-2 text-sm"></i>
                             <span class="text-lg font-medium">View</span>
@@ -219,7 +219,7 @@
         <div class="flex items-center">
             <div class="rounded-full h-10 w-10 xl:hidden lg:hidden flex justify-center items-center text-secondary"    onclick="document.getElementById('sideBarDiv').classList.toggle('hidden');
                              document.getElementById('sideBarOverlay').classList.toggle('w-full');"><i class="fa fa-bars text-xl" title="Search......"></i></div>
-            <span class="font-bold text-primary text-xl xl:block lg:block md:block sm:block hidden">Super Admin Dashboard</span>
+            <span class="font-bold text-primary text-xl xl:block lg:block md:block sm:block hidden">Principal Investigator</span>
 
         </div>
         <div class="w-max flex items-center">
@@ -231,11 +231,11 @@
             <div class="rounded-full h-10 w-10 flex text-primary justify-center items-center hover:bg-primary/60 hover:text-white cursor-pointer transition ease-in duration-2000"><i class="fa fa-gear animate-spin" title="Search......"></i></div>
             <div class="flex items-center ̥gap-2 mx-4 cursor-pointer">
                 <div class="">
-                    <img src="{{asset('assets/images/logo.png')}}" class="w-auto h-10 rounded-full" alt="IIT Roorkee">
+                <img src="{{ isset($pi->profile_name) ? asset($pi->profile_name) : 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=400' }}"  class="w-auto h-10 rounded-full" alt="IIT Roorkee">
                 </div>
                 <div class="flex flex-col items-start justify-center ml-4">
-                    <span class="text-primary text-sm font-semibold">Super Admin</span>
-                    <span class="text-primary/90 text-xs font-semibol">IIT Roorkee</span>
+                    <span class="text-primary text-sm font-semibold"> {{ $pi->pi->title }} {{ $pi->name }} {{ $pi->pi->last_name }}</span>
+                    <span class="text-primary/90 text-xs font-semibol">Principal Investigator</span>
                 </div>
 
             </div>

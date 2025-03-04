@@ -169,7 +169,7 @@
         <div class="flex items-center">
             <div class="rounded-full h-10 w-10 xl:hidden lg:hidden flex justify-center items-center text-secondary"    onclick="document.getElementById('sideBarDiv').classList.toggle('hidden');
                              document.getElementById('sideBarOverlay').classList.toggle('w-full');"><i class="fa fa-bars text-xl" title="Search......"></i></div>
-            <span class="font-bold text-primary text-xl xl:block lg:block md:block sm:block hidden">Super Admin Dashboard</span>
+            <span class="font-bold text-primary text-xl xl:block lg:block md:block sm:block hidden">Student Dashboard</span>
 
         </div>
         <div class="w-max flex items-center">
@@ -181,11 +181,11 @@
             <div class="rounded-full h-10 w-10 flex text-primary justify-center items-center hover:bg-primary/60 hover:text-white cursor-pointer transition ease-in duration-2000"><i class="fa fa-gear animate-spin" title="Search......"></i></div>
             <div class="flex items-center ̥gap-2 mx-4 cursor-pointer">
                 <div class="">
-                    <img src="{{asset('assets/images/logo.png')}}" class="w-auto h-10 rounded-full" alt="IIT Roorkee">
+                <img src="{{ isset($student->profile_name) ? asset($student->profile_name) : 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=400' }}"  class="w-auto h-10 rounded-full" alt="IIT Roorkee">
                 </div>
                 <div class="flex flex-col items-start justify-center ml-4">
-                    <span class="text-primary text-sm font-semibold">Super Admin</span>
-                    <span class="text-primary/90 text-xs font-semibol">IIT Roorkee</span>
+                    <span class="text-primary text-sm font-semibold">{{$student->name}}</span>
+                    <span class="text-primary/90 text-xs font-semibol">Student</span>
                 </div>
 
             </div>

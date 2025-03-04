@@ -51,4 +51,12 @@ class User extends Authenticatable
         return $this->hasOne(PIUserMeta::class, 'pi_id','id');
     }
     
+
+    public function  student(){
+        return $this->hasOne(StudentUserMeta::class, 'sid','id');
+    }
+
+
+
+    
 }

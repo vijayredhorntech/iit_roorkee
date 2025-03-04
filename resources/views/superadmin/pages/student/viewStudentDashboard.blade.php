@@ -1,4 +1,4 @@
-@extends('student.layout.layout')
+@extends('superadmin.layout.layout')
 @section('content')
 
     <!-- Stats Section -->
@@ -92,7 +92,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- Notifications Card -->
         <div class="w-full border-[1px] border-t-[4px] border-warning/20 border-t-warning bg-white flex gap-2 flex-col">

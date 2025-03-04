@@ -1,6 +1,59 @@
 @extends('superadmin.layout.layout')
 @section('content')
-<div class="w-full grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
+ <!-- Stats Section -->
+ <div class="w-full grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 mt-4">
+        <!-- Total Bookings -->
+        <div
+            class="w-full border-[1px] border-t-[4px] border-primary/20 border-t-primary bg-white flex gap-2 items-center justify-between p-4">
+            <div class="flex flex-col gap-2">
+                <span class="font-semibold text-ternary/70 text-md">Total Bookings</span>
+                <span class="font-bold text-2xl text-ternary">45</span>
+            </div>
+            <div>
+                <i class="fa fa-calendar-check text-4xl text-primary"></i>
+            </div>
+        </div>
+
+        <!-- Current Bookings -->
+        <div
+            class="w-full border-[1px] border-t-[4px] border-secondary/20 border-t-secondary bg-white flex gap-2 items-center justify-between p-4">
+            <div class="flex flex-col gap-2">
+                <span class="font-semibold text-ternary/70 text-md">Current Bookings</span>
+                <span class="font-bold text-2xl text-ternary">3</span>
+            </div>
+            <div>
+                <i class="fa fa-clock text-4xl text-secondary"></i>
+            </div>
+        </div>
+
+        <!-- Total Fine -->
+        <div
+            class="w-full border-[1px] border-t-[4px] border-danger/20 border-t-danger bg-white flex gap-2 items-center justify-between p-4">
+            <div class="flex flex-col gap-2">
+                <span class="font-semibold text-ternary/70 text-md">Total Fine</span>
+                <span class="font-bold text-2xl text-ternary">₹2,500</span>
+            </div>
+            <div>
+                <i class="fa fa-rupee-sign text-4xl text-danger"></i>
+            </div>
+        </div>
+
+        <!-- Pending Approvals -->
+        <div
+            class="w-full border-[1px] border-t-[4px] border-warning/20 border-t-warning bg-white flex gap-2 items-center justify-between p-4">
+            <div class="flex flex-col gap-2">
+                <span class="font-semibold text-ternary/70 text-md">Pending Approvals</span>
+                <span class="font-bold text-2xl text-ternary">2</span>
+            </div>
+            <div>
+                <i class="fa fa-hourglass-half text-4xl text-warning"></i>
+            </div>
+        </div>
+    </div>
+
+
+
+<div class="w-full grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-4">
     <!-- Main Info Card -->
     <div class="xl:col-span-2 lg:col-span-2 w-full border-[1px] border-t-[4px] border-primary/20 border-t-primary bg-white flex gap-2 flex-col">
         <div class="bg-primary/10 px-4 py-2 border-b-[2px] border-b-primary/20 flex justify-between items-center">
@@ -8,30 +61,50 @@
         </div>
         <div class="p-4 grid xl:grid-cols-3 gap-4">
             <!-- Profile Photo -->
+   
             <div class="flex flex-col items-center gap-3">
-                <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=400" alt="PI Photo" class="w-48 h-48 rounded-full object-cover border-4 border-primary/20">
-                <h2 class="text-xl font-semibold text-primary">{{$pi->pi->title}} {{$pi->name}}</h2>
-                <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">Principal Investigator</span>
+                <img src="{{ isset($pi->profile_name) ? asset($pi->profile_name) : 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=400' }}" 
+                    alt="PI Photo" 
+                    class="w-48 h-48 rounded-full object-cover border-4 border-primary/20">
+
+                <h2 class="text-xl font-semibold text-primary">
+                    {{ $pi->pi->title }} {{ $pi->name }} {{ $pi->pi->last_name }}
+                </h2>
+                <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                    Principal Investigator
+                </span>
             </div>
-            
+
             <!-- Basic Info -->
             <div class="xl:col-span-2 flex flex-col gap-2">
                 <h3 class="font-semibold text-primary">Basic Information</h3>
                 <div class="grid grid-cols-2 gap-2 text-sm">
                     <span class="text-gray-600">Department:</span>
-                    <span class="font-medium">Materials Science</span>
+                    <span class="font-medium"> {{ $pi->pi->department }}</span>
+                    
                     <span class="text-gray-600">Designation:</span>
-                    <span class="font-medium">Professor</span>
+                    <span class="font-medium"> {{ $pi->pi->designation }}</span>
+                    
                     <span class="text-gray-600">Email:</span>
-                    <span class="font-medium">rajesh.kumar@iitr.ac.in</span>
-                    <span class="text-gray-600">Phone:</span>
-                    <span class="font-medium">+91 98765 43210</span>
+                    <span class="font-medium"> {{ $pi->email }}</span>
+                    
+                    <span class="text-gray-600">Alternative Email:</span>
+                    <span class="font-medium"> {{ $pi->pi->alt_email ?? 'N/A' }}</span>
+                    
+                    <span class="text-gray-600">Phone Number:</span>
+                    <span class="font-medium"> {{ $pi->pi->phone_number ?? 'N/A' }}</span>
+                    
+                    <span class="text-gray-600">Mobile Number:</span>
+                    <span class="font-medium"> {{ $pi->pi->mobile_number ?? 'N/A' }}</span>
+                    
                     <span class="text-gray-600">Office:</span>
-                    <span class="font-medium">Room 305, Academic Block</span>
+                    <span class="font-medium"> {{ $pi->pi->address ?? 'N/A' }}</span>
+                    
                     <span class="text-gray-600">Joining Date:</span>
-                    <span class="font-medium">2015-08-15</span>
+                    <span class="font-medium"> {{ $pi->pi->date_of_joining ?? 'N/A' }}</span>
                 </div>
             </div>
+
 
             <!-- Research Information -->
             <div class="xl:col-span-3 flex flex-col gap-2">

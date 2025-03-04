@@ -5,6 +5,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\Superadmin\PIController;
+use App\Http\Controllers\PI\AccessPIController;
+use App\Http\Controllers\Superadmin\StudentController;
+use App\Http\Controllers\Student\AccessStudentController;
 
 
 
@@ -26,7 +29,37 @@ Route::prefix('super-admin')->group(function () {
         Route::post('/pistore', 'hs_pistore')->name('pi_store');
         Route::get('/view_pi','hs_viewallpi')->name('alldetails_pi');
         Route::get('/view_pi/{id}','hs_viewpi')->name('view_pi.details');
+    });
 
+
+    Route::controller(StudentController::class)->group(function () {
+        Route::get('/create_student', 'hs_createstudent')->name('superadmin.create_student');
+        Route::post('/studentstore', 'hs_studentstore')->name('student_store');
+        Route::get('/view_student', 'hs_viewallstudent')->name('alldetails_student');
+        Route::get('/view_student/{id}','hs_viewstudent')->name('view_student.details');
+        
+    });
+
+
+    
+
+});
+
+
+
+Route::prefix('pi')->group(function () {
+    Route::controller(AccessPIController::class)->group(function () {
+        Route::get('/pidashboard','hs_pidashboard')->name('pidashboard');
+        Route::get('/studentview','hs_studentlist')->name('allpi_student');
+        Route::get('/view_student/{id}','hs_viewstudent')->name('piview_student.details');
+        Route::get('/create_student', 'hs_createstudent')->name('pi.create_student');
+    });
+});
+
+
+Route::prefix('student')->group(function () {
+    Route::controller(AccessStudentController::class)->group(function () {
+        Route::get('/studentdashboard','hs_studentdashboard')->name('studentdashboard');
     });
 });
 
@@ -35,11 +68,12 @@ Route::prefix('super-admin')->group(function () {
 
 
 
-/****Route pi*******/
-Route::get('/pidashboard', function () { return view('pi.dashboard');})->name('pidashboard');
+
+
+// Route::get('/pidashboard', function () { return view('pi.dashboard');})->name('pidashboard');
 
 /****Route student*******/
-Route::get('/studentdashboard', function () { return view('student.dashboard');})->name('studentdashboard');
+// Route::get('/studentdashboard', function () { return view('student.dashboard');})->name('studentdashboard');
 
 Route::get('/forget_password', function () { return view('forgetPassword');})->name('forget_password');
 Route::get('/password_link_sent', function () { return view('passwordLinkSent');})->name('password_link_sent');

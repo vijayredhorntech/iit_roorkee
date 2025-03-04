@@ -36,7 +36,7 @@
         <img src="{{asset('assets/images/logo.png')}}" class="lg:h-40 md:h-40 sm:h-36 h-32 w-auto" alt="IITR Logo"/>
     </div>
     <div class="mt-4 flex flex-col items-center text-center">
-        <span class="lg:text-[35px] md:text-[30px] sm:text-[28px] text-[25px] font-semibold text-primary">"KINKER"</span>
+        <span class="lg:text-[35px] md:text-[30px] sm:text-[28px] text-[25px] font-semibold text-primary">"KINKAR"</span>
         <span class="lg:text-[20px] md:text-[20px] sm:text-[17px] text-[15px] font-semibold text-primary">Instrument Booking System</span>
         <div class="w-[90%]">
             <p class="lg:text-xs md:text-xs sm:text-xs text-[10px] text-gray-600">Department of Biological Science</p>

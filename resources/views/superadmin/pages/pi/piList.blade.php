@@ -86,32 +86,37 @@
 
     @forelse($allpi as $pi)
  
-    <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
-        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">{{ $loop->iteration }}</td>
-        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">{{ $pi->name }}</td>
-        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">{{ $pi->email }}</td>
-        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">{{ $pi->pi->phone_number }}</td>
-        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">{{ $pi->pi->department }}</td>
-        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">
-            <span class="bg-success/20 text-success px-2 py-0.5 rounded-full text-xs">
-                {{ $pi->pi->status == 'active' ? 'Active' : 'Inactive' }}
-            </span>
-        </td>
-        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">
-            <div class="flex gap-2">
-                <a href="{{route('view_pi.details',['id' => $pi->id])}}" title="View Details" 
-                   class="bg-primary/20 text-primary h-6 w-6 flex justify-center items-center rounded-[3px] 
-                   hover:bg-primary hover:text-white cursor-pointer transition ease-in duration-2000">
-                    <i class="fa fa-eye text-xs"></i>
-                </a>
-                <a href="{{ route('create_pi', ['id'=>$pi->id]) }}" title="Edit" 
-                   class="bg-warning/20 text-warning h-6 w-6 flex justify-center items-center rounded-[3px] 
-                   hover:bg-warning hover:text-white cursor-pointer transition ease-in duration-2000">
-                    <i class="fa fa-pen text-xs"></i>
-                </a>
-            </div>
-        </td>
-    </tr>
+                <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
+                <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">{{ $loop->iteration }}</td>
+                <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">{{ $pi->name }}</td>
+                <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">{{ $pi->email }}</td>
+                <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">
+                    {{ $pi->pi->phone_number ?? 'N/A' }}
+                </td>
+                <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">
+                    {{ $pi->pi->department ?? 'Not Specified' }}
+                </td>
+                <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">
+                    <span class="{{ $pi->pi->status == 'active' ? 'bg-success/20 text-success' : 'bg-danger/20 text-danger' }} px-2 py-0.5 rounded-full text-xs">
+                        {{ $pi->pi->status == 'active' ? 'Active' : 'Inactive' }}
+                    </span>
+                </td>
+                <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">
+                    <div class="flex gap-2">
+                        <a href="{{ route('view_pi.details', ['id' => $pi->id]) }}" title="View Details" 
+                        class="bg-primary/20 text-primary h-6 w-6 flex justify-center items-center rounded-[3px] 
+                        hover:bg-primary hover:text-white cursor-pointer transition ease-in duration-2000">
+                            <i class="fa fa-eye text-xs"></i>
+                        </a>
+                        <a href="{{ route('create_pi', ['id' => $pi->id]) }}" title="Edit" 
+                        class="bg-warning/20 text-warning h-6 w-6 flex justify-center items-center rounded-[3px] 
+                        hover:bg-warning hover:text-white cursor-pointer transition ease-in duration-2000">
+                            <i class="fa fa-pen text-xs"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+
 @empty
     <tr>
         <td colspan="7" class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm text-center">
