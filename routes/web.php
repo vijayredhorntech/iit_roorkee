@@ -65,8 +65,14 @@ Route::prefix('super-admin')->group(function () {
         Route::get('/create_instrument', 'hs_create_instrumentcategory')->name('superadmin.create_instrumentcategory');
         Route::post('/store_categories','hs_store_categories')->name('superadmin.storeinstrumentcategory');
         Route::get('/instrument_category_list','hs_instrument_categorieslist')->name('superadmin.categorylist');
+        Route::get('/instruments-list', 'hs_instrumentlist')->name('superadmin.instrument_list');
+        Route::get('/create_Instrument','hs_create_Instrument')->name('superadmin.create_Instrument');
+        Route::post('/create_Instrument','hs_Instrumentstore')->name('superadmin.instrument_store');
+        Route::get('/view_instrument/{id}','hs_view_instrument')->name('superadmin.view_instrument');
+        Route::get('/add_acceossries/{id}', 'hs_add_accessories')->name('superadmin.add_accessories');
+        Route::post('/accessories','hs_accessoriesstore')->name('superadmin.accessory_store');
+        Route::get('/view_acceossries/{id}', 'hs_view_acceossries')->name('superadmin.view_acceossries');
 
-        
     });
     
 
@@ -124,6 +130,7 @@ Route::prefix('instrument')->group(function () {
     Route::get('/instruments-list', function () { return view('instrumentsList');})->name('instrument_list');
     Route::get('/add_acceossries', function () { return view('addAcceossries');})->name('add_acceossries');
     Route::get('/view_acceossries', function () { return view('viewAcceossries');})->name('view_acceossries');
+    
 });
 
 
