@@ -276,18 +276,18 @@
                 </a>
             </ul>
         </div>
-        <a href="{{route('book_instrument')}}">
+        <a href="{{route('get_bookings')}}">
             <div class=" {{Route::currentRouteName()==='book_instrument'?'bg-primaryLight/90 border-[2px] border-white text-primary':'bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
                     <i class="fa fa-ticket mr-2 text-sm"></i>
-                    <span class="text-lg font-medium">Book Instrument</span>
+                    <span class="text-lg font-medium">View Bookings</span>
                 </div>
                 <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
             </div>
         </a>
 
         <!-- Access Control Section -->
-        <div class="cursor-pointer group">
+        <!-- <div class="cursor-pointer group">
             <div onclick="document.getElementById('accessControlDiv').classList.toggle('hidden');document.getElementById('accessControlArrow').classList.toggle('-rotate-90')"
                  class="{{request()->is('access-control/*') ?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
@@ -315,10 +315,10 @@
                     </li>
                 </a>
             </ul>
-        </div>
+        </div> -->
 
         <!-- Service Management Section -->
-        <div class="cursor-pointer group">
+        <!-- <div class="cursor-pointer group">
             <div onclick="document.getElementById('serviceDiv').classList.toggle('hidden');document.getElementById('serviceArrow').classList.toggle('-rotate-90')"
                  class="{{request()->is('service/*') ?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
@@ -346,10 +346,10 @@
                     </li>
                 </a>
             </ul>
-        </div>
+        </div> -->
 
         <!-- Training Section -->
-        <div class="cursor-pointer group">
+        <!-- <div class="cursor-pointer group">
             <div onclick="document.getElementById('trainingDiv').classList.toggle('hidden');document.getElementById('trainingArrow').classList.toggle('-rotate-90')"
                  class="{{request()->is('training/*') ?'bg-primaryLight/90 border-[2px] border-white text-primary':'border-[2px] border-primary  bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
@@ -377,7 +377,7 @@
                     </li>
                 </a>
             </ul>
-        </div>
+        </div> -->
 
         <!-- Booking Management Section -->
         <div class="cursor-pointer group">
@@ -409,6 +409,18 @@
                 </a>
             </ul>
         </div>
+
+        <a href="{{route('logout')}}">
+            <div class=" {{Route::currentRouteName()==='book_instrument'?'bg-primaryLight/90 border-[2px] border-white text-primary':'bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
+                <div class="flex items-center">
+                    <i class="fa fa-ticket mr-2 text-sm"></i>
+                    <span class="text-lg font-medium">Logout</span>
+                </div>
+                <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
+            </div>
+        </a>
+
+
     </div>
 
 

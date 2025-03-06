@@ -95,4 +95,12 @@ class BookingInstrumentRepository implements BookingInstrumentRepositoryInterfac
         //     'instruments' => $instruments
         // ];
     }
+
+
+    public function getBothBooking(){
+        return BookingInstrument::with('instrument', 'user.pi', 'user.student')
+        ->orderBy('created_at', 'desc') // Order by latest first
+        ->paginate(10);
+
+    }
 }

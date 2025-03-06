@@ -8,7 +8,7 @@
             class="w-full border-[1px] border-t-[4px] border-primary/20 border-t-primary bg-white flex gap-2 items-center justify-between p-4">
             <div class="flex flex-col gap-2">
                 <span class="font-semibold text-ternary/70 text-md">Total Bookings</span>
-                <span class="font-bold text-2xl text-ternary">45</span>
+                <span class="font-bold text-2xl text-ternary"></span>
             </div>
             <div>
                 <i class="fa fa-calendar-check text-4xl text-primary"></i>
@@ -20,7 +20,7 @@
             class="w-full border-[1px] border-t-[4px] border-secondary/20 border-t-secondary bg-white flex gap-2 items-center justify-between p-4">
             <div class="flex flex-col gap-2">
                 <span class="font-semibold text-ternary/70 text-md">Current Bookings</span>
-                <span class="font-bold text-2xl text-ternary">3</span>
+                <span class="font-bold text-2xl text-ternary"></span>
             </div>
             <div>
                 <i class="fa fa-clock text-4xl text-secondary"></i>
@@ -31,8 +31,8 @@
         <div
             class="w-full border-[1px] border-t-[4px] border-danger/20 border-t-danger bg-white flex gap-2 items-center justify-between p-4">
             <div class="flex flex-col gap-2">
-                <span class="font-semibold text-ternary/70 text-md">Total Fine</span>
-                <span class="font-bold text-2xl text-ternary">₹2,500</span>
+                <span class="font-semibold text-ternary/70 text-md"></span>
+                <span class="font-bold text-2xl text-ternary"></span>
             </div>
             <div>
                 <i class="fa fa-rupee-sign text-4xl text-danger"></i>
@@ -44,7 +44,7 @@
             class="w-full border-[1px] border-t-[4px] border-warning/20 border-t-warning bg-white flex gap-2 items-center justify-between p-4">
             <div class="flex flex-col gap-2">
                 <span class="font-semibold text-ternary/70 text-md">Pending Approvals</span>
-                <span class="font-bold text-2xl text-ternary">2</span>
+                <span class="font-bold text-2xl text-ternary"></span>
             </div>
             <div>
                 <i class="fa fa-hourglass-half text-4xl text-warning"></i>

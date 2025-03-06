@@ -8,7 +8,7 @@
             class="w-full border-[1px] border-t-[4px] border-primary/20 border-t-primary bg-white flex gap-2 items-center justify-between p-4">
             <div class="flex flex-col gap-2">
                 <span class="font-semibold text-ternary/70 text-md">Total Bookings</span>
-                <span class="font-bold text-2xl text-ternary">45</span>
+                <span class="font-bold text-2xl text-ternary">{{ $bookings->total() }}</span>
             </div>
             <div>
                 <i class="fa fa-calendar-check text-4xl text-primary"></i>
@@ -20,7 +20,7 @@
             class="w-full border-[1px] border-t-[4px] border-secondary/20 border-t-secondary bg-white flex gap-2 items-center justify-between p-4">
             <div class="flex flex-col gap-2">
                 <span class="font-semibold text-ternary/70 text-md">Current Bookings</span>
-                <span class="font-bold text-2xl text-ternary">3</span>
+                <span class="font-bold text-2xl text-ternary">{{$bookings->count()}}</span>
             </div>
             <div>
                 <i class="fa fa-clock text-4xl text-secondary"></i>
@@ -31,8 +31,8 @@
         <div
             class="w-full border-[1px] border-t-[4px] border-danger/20 border-t-danger bg-white flex gap-2 items-center justify-between p-4">
             <div class="flex flex-col gap-2">
-                <span class="font-semibold text-ternary/70 text-md">Total Fine</span>
-                <span class="font-bold text-2xl text-ternary">₹2,500</span>
+                <span class="font-semibold text-ternary/70 text-md"></span>
+                <span class="font-bold text-2xl text-ternary"></span>
             </div>
             <div>
                 <i class="fa fa-rupee-sign text-4xl text-danger"></i>
@@ -44,7 +44,7 @@
             class="w-full border-[1px] border-t-[4px] border-warning/20 border-t-warning bg-white flex gap-2 items-center justify-between p-4">
             <div class="flex flex-col gap-2">
                 <span class="font-semibold text-ternary/70 text-md">Pending Approvals</span>
-                <span class="font-bold text-2xl text-ternary">2</span>
+                <span class="font-bold text-2xl text-ternary">0</span>
             </div>
             <div>
                 <i class="fa fa-hourglass-half text-4xl text-warning"></i>
@@ -138,31 +138,31 @@
     <div
         class="w-full border-[1px] border-t-[4px] border-primary/20 border-t-primary bg-white flex gap-2 flex-col mt-4">
         <div class="bg-primary/10 px-4 py-2 border-b-[2px] border-b-primary/20">
-            <span class="font-semibold text-primary text-lg">Current Bookings</span>
+            <!-- <span class="font-semibold text-primary text-lg">Current Bookings</span> -->
         </div>
 
         <div class="p-4">
             <div class="w-full flex justify-between gap-2 items-center">
                 <div class="flex gap-2">
-                    <button title="Export to excel" class="bg-success/20 text-success h-8 w-8 flex justify-center items-center rounded-[3px] hover:bg-success hover:text-white cursor-pointer transition ease-in duration-2000">
+                    <!-- <button title="Export to excel" class="bg-success/20 text-success h-8 w-8 flex justify-center items-center rounded-[3px] hover:bg-success hover:text-white cursor-pointer transition ease-in duration-2000">
                         <i class="fa fa-file-excel"></i>
                     </button>
 
                     <button title="Export to pdf" class="bg-danger/20 text-danger h-8 w-8 flex justify-center items-center rounded-[3px] hover:bg-danger hover:text-white cursor-pointer transition ease-in duration-2000">
                         <i class="fa fa-file-pdf"></i>
-                    </button>
+                    </button> -->
                 </div>
-                <div class="flex items-center gap-2">
+                <!-- <div class="flex items-center gap-2">
                     <input type="text" name="search" required placeholder="Search Instrument" class="px-2 py-1 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000"/>
                     <select name="status" required class="px-2 py-1 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
                         <option value="All">All Status</option>
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
                     </select>
-                </div>
+                </div> -->
             </div>
             <div class="relative overflow-x-auto mt-4">
-                <table class="w-full border-[2px] border-secondary/40 border-collapse">
+                <!-- <table class="w-full border-[2px] border-secondary/40 border-collapse">
                     <tr>
                         <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">
                             Sr. No.
@@ -183,26 +183,8 @@
                             Cost
                         </td>
                     </tr>
-                    <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">1
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            Microscope
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            2024-02-28 10:00 AM
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">2
-                            hours
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            <span class="px-2 py-1 bg-success/20 text-success rounded-full text-xs">Active</span>
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            ₹15,000
-                        </td>
-                    </tr>
-                </table>
+                   
+                </table> -->
             </div>
         </div>
     </div>
@@ -247,7 +229,10 @@
                             Booked At
                         </td>
                         <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">
-                            Duration
+                            Start Time
+                        </td>
+                        <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">
+                            End Time
                         </td>
                         <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">
                             Status
@@ -256,62 +241,33 @@
                             Cost
                         </td>
                     </tr>
-                    <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">1
+                    
+                  @forelse($bookings as $booking)
+                        
+                        <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
+                        <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">{{ $loop->iteration }}</td>
+                        <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">
+                                {{$booking->instrument->name}}
+                                </td>
+                                
+                        <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">{{$booking->date}}</td>
+                              
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">{{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }}</td>
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">{{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}</td>
+
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm"><span class="px-2 py-1 bg-success/20 text-success rounded-full text-xs">Completed</span></td>
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">₹ {{$booking->instrument->per_hour_cost}}</td>
+                        </tr>
+
+                        @empty
+                        <tr>
+                        <td colspan="7" class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm text-center">
+                        No records found
                         </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            Spectrometer
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            2024-02-20 02:00 PM
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">3
-                            hours
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            <span class="px-2 py-1 bg-success/20 text-success rounded-full text-xs">Completed</span>
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            ₹20,000
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">2
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">XRD
-                            Machine
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            2024-02-15 11:30 AM
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">4
-                            hours
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            <span class="px-2 py-1 bg-success/20 text-success rounded-full text-xs">Completed</span>
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            ₹25,000
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">3
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">SEM
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            2024-02-10 09:00 AM
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">5
-                            hours
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            <span class="px-2 py-1 bg-success/20 text-success rounded-full text-xs">Completed</span>
-                        </td>
-                        <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                            ₹30,000
-                        </td>
-                    </tr>
+                        </tr>
+                        @endforelse
+                        
+                        
                 </table>
             </div>
         </div>

@@ -151,11 +151,15 @@ public function hs_viewallpi(){
 }
 
 
+
+
 /******View Pi Single details*******/
 
 public function hs_viewpi ($id){
     $pi = User::with('pi')->where('id',$id)->first();
-     return view('superadmin.pages.pi.viewPi',['pi'=>$pi]);
+    $students=StudentUserMeta::with('user_data')->where('pi_id',$id)->paginate(5000); 
+    $bookings=BookingInstrument::with('instrument')->where('user_id',$id)->paginate(5);
+     return view('superadmin.pages.pi.viewPi',['pi'=>$pi,'students'=>$students,'bookings'=>$bookings]);
 
 }
 

@@ -86,8 +86,19 @@ Route::prefix('super-admin')->middleware(AdminMiddleware::class)->group(function
         Route::get('/add_acceossries/{id}', 'hs_add_accessories')->name('superadmin.add_accessories');
         Route::post('/accessories','hs_accessoriesstore')->name('superadmin.accessory_store');
         Route::get('/view_acceossries/{id}', 'hs_view_acceossries')->name('superadmin.view_acceossries');
+        Route::get('/view_catinstrument/{id}', 'hs_view_categoryins')->name('superadmin.viewcategoriesins');
+
+       
 
     });
+
+
+    Route::controller(BookingController::class)->group(function () {
+       
+     Route::get('/getbookings','hs_getbooking')->name('get_bookings'); 
+        
+    });
+
     
 
 });
@@ -135,7 +146,7 @@ Route::prefix('pi')->group(function () {
    
 
 
-  
+   
 });
 
 

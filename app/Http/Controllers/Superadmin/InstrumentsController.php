@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Models\InstrumentAccessory;
+use App\Models\BookingInstrument;
 
 class InstrumentsController extends Controller
 {
@@ -49,14 +50,14 @@ class InstrumentsController extends Controller
         $instrumentcategory->save(); 
 
         // Redirect or return response
-        return redirect()->back()->with('success', 'Category added successfully!');
+        return redirect()->route('superadmin.categorylist')->with('success', 'Category added successfully!');
     }
 
 
 /********Get Index for Categorylist *********/
      public function hs_instrument_categorieslist()
             {
-                $all_instrumentscategory = InstrumentsCategory::paginate(10);
+                $all_instrumentscategory = InstrumentsCategory::with('instruments')->paginate(10);
 
                 return view('superadmin.pages.Instruments.instrumentCategoryList', [
                     'all_category' => $all_instrumentscategory
@@ -232,10 +233,12 @@ public function hs_view_instrument($id){
         'warrantyInformation',
         'instrumentaccessoriesInformations')->where('id',$id)->first(); 
       
-      
+        $bookings=BookingInstrument::with('instrument','user.pi','user.student')->where('instrument_id',$id)->paginate(10);
+       
     //  dd($instruments);
         return view('superadmin.pages.Instruments.viewInstrument',[
-            'instrument'=>$instruments
+            'instrument'=>$instruments,
+            'bookings'=>$bookings
         ]); 
 }
 
@@ -322,8 +325,18 @@ public function hs_view_acceossries($id){
 
     $accessories = InstrumentAccessory::with('instrumentInformation')->where('instrument_id', $id)->get();
     $instrument=Instrument::where('id',$id)->first(); 
-   
     return view('superadmin.pages.Instruments.viewAcceossries',['accessories'=>$accessories,'instrument'=>$instrument]); 
+}
+
+
+/*******Category instrument*******/
+
+public function hs_view_categoryins($id){
+    // $catinst = Instrument::paginate(10);
+    
+    $catinst = Instrument::with('instrumentaccessoriesInformations')->where('category_type',$id)->paginate(10);
+    return view('superadmin.pages.Instruments.categoryinstlist',['instruments'=>$catinst]); 
+
 }
 
 

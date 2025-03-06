@@ -142,7 +142,7 @@
           <!-- Documents -->
           <div class="px-4 pb-4 grid xl:grid-cols-3 gap-4">
 
-          
+          @if(isset($instrument->instrumentDocument->operation_manual))
              <a href="{{ isset($instrument->instrumentDocument->operation_manual) ? asset($instrument->instrumentDocument->operation_manual) : '#' }}" 
                 target="{{ isset($instrument->instrumentDocument->operation_manual) ? '_blank' : '_self' }}"
                 class="flex items-center gap-2 p-3 border rounded-lg hover:bg-gray-50">
@@ -152,7 +152,8 @@
                         <span class="text-xs text-gray-500">PDF, 2.5 MB</span>
                     </div>
                 </a>
-
+            @endif
+            @if(isset($instrument->instrumentDocument->service_manual))
                 <a href="{{ isset($instrument->instrumentDocument->service_manual) ? asset($instrument->instrumentDocument->service_manual) : '#' }}" 
                 target="{{ isset($instrument->instrumentDocument->service_manual) ? '_blank' : '_self' }}"
                 class="flex items-center gap-2 p-3 border rounded-lg hover:bg-gray-50">
@@ -162,7 +163,9 @@
                         <span class="text-xs text-gray-500">PDF, 3.8 MB</span>
                     </div>
                 </a>
+            @endif
 
+            @if(isset($instrument->instrumentDocument->additional_documents))
                 <a href="{{ isset($instrument->instrumentDocument->additional_documents) ? asset($instrument->instrumentDocument->additional_documents) : '#' }}" 
                 target="{{ isset($instrument->instrumentDocument->additional_documents) ? '_blank' : '_self' }}"
                 class="flex items-center gap-2 p-3 border rounded-lg hover:bg-gray-50">
@@ -172,7 +175,8 @@
                         <span class="text-xs text-gray-500">PDF, 1.2 MB</span>
                     </div>
                 </a>
-
+                @endif  
+             @if(isset($instrument->instrumentDocument->additional_documents))
                 <a href="{{ isset($instrument->instrumentDocument->additional_documents) ? asset($instrument->instrumentDocument->additional_documents) : '#' }}" 
                 target="{{ isset($instrument->instrumentDocument->additional_documents) ? '_blank' : '_self' }}"
                 class="flex items-center gap-2 p-3 border rounded-lg hover:bg-gray-50">
@@ -182,7 +186,8 @@
                         <span class="text-xs text-gray-500">PDF, 850 KB</span>
                     </div>
                 </a>
-
+             @endif
+            @if(isset($instrument->instrumentDocument->operation_manual))
                 <a href="{{ isset($instrument->instrumentDocument->operation_manual) ? asset($instrument->instrumentDocument->operation_manual) : '#' }}" 
                 target="{{ isset($instrument->instrumentDocument->operation_manual) ? '_blank' : '_self' }}"
                 class="flex items-center gap-2 p-3 border rounded-lg hover:bg-gray-50">
@@ -192,7 +197,7 @@
                         <span class="text-xs text-gray-500">PDF, 1.5 MB</span>
                     </div>
                 </a>
-
+                @endif
           </div>
       </div>
 
@@ -231,14 +236,50 @@
               <div class="relative overflow-x-auto">
         
                   <table class="w-full border-[2px] border-secondary/40 border-collapse mt-4">
-                        <tr>
+                 
+                  <tr>
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Sr. No.</td>
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Date</td>
                         <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">User</td>
-                            <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Duration</td>
+                        <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Instrument Name</td>
+                        <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Start Date</td>  
+                        <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">End Date</td>
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Status</td>
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Cost</td>
                         </tr>
+                        
+                        @forelse($bookings as $booking)
+                      
+                        <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
+                        <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">{{ $loop->iteration }}</td>
+                        <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">{{$booking->date}}</td>
+                       
+                        @if($booking->user->type=="pi")
+                        <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">
+                                 {{$booking->user->name}} {{$booking->user->pi->last_name}}
+                                </td>
+                        @else
+                        <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">
+                            {{$booking->user->name}} {{$booking->user->student->last_name}}
+                                </td>
+                        @endif
+                        <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">
+                                {{$booking->instrument->name}}
+                                </td>
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">{{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }}</td>
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">{{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}</td>
+
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm"><span class="px-2 py-1 bg-success/20 text-success rounded-full text-xs">Completed</span></td>
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">₹ {{$booking->instrument->per_hour_cost}}</td>
+                        </tr>
+
+                        @empty
+                        <tr>
+                        <td colspan="7" class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm text-center">
+                        No records found
+                        </td>
+                        </tr>
+                        @endforelse
 
                            
     

@@ -7,7 +7,7 @@
             class="w-full border-[1px] border-t-[4px] border-primary/20 border-t-primary bg-white flex gap-2 items-center justify-between p-4">
             <div class="flex flex-col gap-2">
                 <span class="font-semibold text-ternary/70 text-md">Total Bookings</span>
-                <span class="font-bold text-2xl text-ternary">45</span>
+                <span class="font-bold text-2xl text-ternary">{{ $bookings->total() }}</span>
             </div>
             <div>
                 <i class="fa fa-calendar-check text-4xl text-primary"></i>
@@ -19,7 +19,7 @@
             class="w-full border-[1px] border-t-[4px] border-secondary/20 border-t-secondary bg-white flex gap-2 items-center justify-between p-4">
             <div class="flex flex-col gap-2">
                 <span class="font-semibold text-ternary/70 text-md">Current Bookings</span>
-                <span class="font-bold text-2xl text-ternary">3</span>
+                <span class="font-bold text-2xl text-ternary">{{ $bookings->total() }}</span>
             </div>
             <div>
                 <i class="fa fa-clock text-4xl text-secondary"></i>
@@ -30,8 +30,8 @@
         <div
             class="w-full border-[1px] border-t-[4px] border-danger/20 border-t-danger bg-white flex gap-2 items-center justify-between p-4">
             <div class="flex flex-col gap-2">
-                <span class="font-semibold text-ternary/70 text-md">Total Fine</span>
-                <span class="font-bold text-2xl text-ternary">₹2,500</span>
+                <span class="font-semibold text-ternary/70 text-md">Total Student</span>
+                <span class="font-bold text-2xl text-ternary">{{ $students->total() }}</span>
             </div>
             <div>
                 <i class="fa fa-rupee-sign text-4xl text-danger"></i>
@@ -43,7 +43,7 @@
             class="w-full border-[1px] border-t-[4px] border-warning/20 border-t-warning bg-white flex gap-2 items-center justify-between p-4">
             <div class="flex flex-col gap-2">
                 <span class="font-semibold text-ternary/70 text-md">Pending Approvals</span>
-                <span class="font-bold text-2xl text-ternary">2</span>
+                <span class="font-bold text-2xl text-ternary">0</span>
             </div>
             <div>
                 <i class="fa fa-hourglass-half text-4xl text-warning"></i>
@@ -113,16 +113,16 @@
                     <div class="flex flex-col gap-2">
                         <span class="text-gray-600">Research Areas:</span>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-xs">Nanotechnology</span>
-                            <span class="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-xs">Materials Science</span>
-                            <span class="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-xs">Surface Engineering</span>
-                            <span class="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-xs">Thin Films</span>
+                            <span class="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-xs"></span>
+                            <span class="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-xs"></span>
+                            <span class="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-xs"></span>
+                            <span class="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-xs"></span>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2">
                         <span class="text-gray-600">Students in Lab:</span>
                         <div class="flex flex-wrap gap-2">
-                            <span onclick="document.getElementById('studentInLab').classList.toggle('hidden')" class="cursor-pointer px-2 py-1 bg-success/10 text-success rounded-full text-xs"><span class="font-semibold">02</span> - View All</span>
+                            <span onclick="document.getElementById('studentInLab').classList.toggle('hidden')" class="cursor-pointer px-2 py-1 bg-success/10 text-success rounded-full text-xs"><span class="font-semibold">{{ $students->total() }}</span> - View All</span>
                         </div>
                     </div>
                 </div>
@@ -204,41 +204,51 @@
             <th class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-2 text-ternary/80 font-bold text-md text-left">Student ID</th>
             <th class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-2 text-ternary/80 font-bold text-md text-left">Name</th>
             <th class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-2 text-ternary/80 font-bold text-md text-left">Department</th>
-            <th class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-2 text-ternary/80 font-bold text-md text-left">PI</th>
+      
             <th class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-2 text-ternary/80 font-bold text-md text-left">Year</th>
             <th class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-2 text-ternary/80 font-bold text-md text-left">Status</th>
         </tr>
     </thead>
     <tbody>
         <!-- Sample Data Row -->
+        @forelse($students as $student)
+        <!-- Sample Data Row -->
+
         <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">STU001</td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">John Doe</td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">Computer Science</td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">Dr. Rajesh Kumar</td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">2024</td>
+            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">{{$student->student_id}}</td>
+            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">{{$student->user_data->name}} {{$student->lastname}} </td>
+            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">{{$student->department}}</td>
+            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">{{$student->student_year}} Year</td>
             <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
                 <span class="px-2 py-1 bg-success/20 text-success rounded-full text-xs">Active</span>
             </td>
-        
+           
         </tr>
-        <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">STU002</td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">Priya Sharma</td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">Electrical Engineering</td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">Dr. Ananya Patel</td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">2023</td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
-                <span class="px-2 py-1 bg-success/20 text-success rounded-full text-xs">Active</span>
-            </td>
-         
-        </tr>
+
+        @empty
+    <tr>
+        <td colspan="7" class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm text-center">
+            No records found
+        </td>
+    </tr>
+   @endforelse
+       
     </tbody>
 </table>
-             
+
+
+</div>
+</div>
+</div>
+<!-- <div class="text-sm text-gray-600">
+                Showing {{ $students->firstItem() }} to {{ $students->lastItem() }} of {{ $students->total() }} entries
+            </div>
+            <div class="mt-4">
+                {{ $students->links() }}
+            </div>
                 </div>
           </div>
-</div>
+</div> -->
 
 
 
@@ -255,23 +265,38 @@
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Sr. No.</td>
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Date</td>
                         <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Instrument</td>
-                            <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Duration</td>
+                            <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Start Time </td>
+                            <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">End Time </td>
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Status</td>
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Cost</td>
                         </tr>
+                        
+        <!-- Sample Data Row -->
 
-                            <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">1</td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">2024-02-15</td>
+                  @forelse($bookings as $booking)
+                        
+                        <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
+                        <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">{{ $loop->iteration }}</td>
+                        <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">{{$booking->date}}</td>
                                 <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">
-                                  Microscope
+                                {{$booking->instrument->name}}
                                 </td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">2 hours</td>
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">{{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }}</td>
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">{{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}</td>
 
                                 <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm"><span class="px-2 py-1 bg-success/20 text-success rounded-full text-xs">Completed</span></td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">₹15,000</td>
-                              
-                            </tr>
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">₹ {{$booking->instrument->per_hour_cost}}</td>
+                        </tr>
+
+                        @empty
+                        <tr>
+                        <td colspan="7" class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm text-center">
+                        No records found
+                        </td>
+                        </tr>
+                        @endforelse
+
+                           
     
                    </table>
               </div>

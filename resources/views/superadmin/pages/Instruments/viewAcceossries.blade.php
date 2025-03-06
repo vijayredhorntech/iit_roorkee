@@ -39,6 +39,7 @@
                 </div>
                 <p class="text-sm text-gray-600 mb-4">  {{$accessory->purpose}} </p>
                 <div class="flex gap-2">
+                @if(isset($accessory->manual))
                 <a href="{{ $accessory->manual ? asset($accessory->manual) : '#' }}" 
                         class="flex items-center gap-2 p-2 border rounded hover:bg-gray-50"
                         target="{{ $accessory->manual ? '_blank' : '_self' }}" 
@@ -46,7 +47,8 @@
                             <i class="fa fa-file-pdf text-danger"></i>
                             <span class="text-sm">Manual</span>
                         </a>
-
+                @endif
+                @if(isset($accessory->specs))
                         <a href="{{ $accessory->manual ? asset($accessory->manual) : '#' }}" 
                         class="flex items-center gap-2 p-2 border rounded hover:bg-gray-50"
                         target="{{ $accessory->manual ? '_blank' : '_self' }}" 
@@ -54,6 +56,7 @@
                         <i class="fa fa-file-pdf text-danger"></i>
                         <span class="text-sm">Specs</span>
                     </a>
+                @endif
                 </div>
             </div>
         </div>

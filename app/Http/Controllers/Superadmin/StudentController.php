@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Services\StudentService;
+use App\Models\BookingInstrument;
 
 class StudentController extends Controller
 {
@@ -91,8 +92,15 @@ class StudentController extends Controller
 
    public function hs_viewstudent ($id){  
    
+    
     $student = User::with(['student.piname','student.pideatils'])->where('id',$id)->first();
-     return view('superadmin.pages.student.viewStudentDashboard',['student'=>$student]);
+    $bookings = BookingInstrument::with('instrument')
+    ->where('user_id', $id)
+    ->orderBy('created_at', 'desc') // Order by latest bookings first
+    ->paginate(10);
+
+  
+     return view('superadmin.pages.student.viewStudentDashboard',['student'=>$student,'bookings'=>$bookings]);
   }
    
 }

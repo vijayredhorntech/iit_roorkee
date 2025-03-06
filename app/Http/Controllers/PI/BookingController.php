@@ -126,15 +126,6 @@ $endLimit = Carbon::createFromTime(18, 0, 0); // 6:00 PM
 
 $bookings = BookingInstrument::where('date', $request->booking_date)->where('instrument_id',$request->instrument)->get(['start_time', 'end_time']);
 
-// foreach ($bookings as $booking) {
-//     $startTime = Carbon::parse($booking->start_time);
-//     $endTime = Carbon::parse($booking->end_time);
-
-//     if ($startTime->between($startLimit, $endLimit) && $endTime->between($startLimit, $endLimit)) {
-//         dd('check');
-//          return response()->json(['message' => 'All slot are Booked on this date'], 400);
-//     }
-// }
 
  // Check if the instrument exists
  if (!$bookings) {
@@ -145,5 +136,12 @@ $bookings = BookingInstrument::where('date', $request->booking_date)->where('ins
 return response()->json($bookings);
 
 
+  }
+
+  /******Route for superradmin******/
+  public function hs_getbooking(){
+
+    $bookings = $this->bookingRepository->getBothBooking();
+      return view('superadmin.pages.booking.bookingList', ['bookings'=>$bookings]);
   }
 }

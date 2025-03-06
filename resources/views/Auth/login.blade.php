@@ -43,6 +43,12 @@
         </div>
     </div>
     <div class="mt-8">
+            @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
      <form method="POST" action="{{ route('auth.login') }}">
            @csrf
             <div class="w-full flex flex-col gap-1">

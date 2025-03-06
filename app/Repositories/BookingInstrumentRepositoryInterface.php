@@ -9,4 +9,5 @@ interface BookingInstrumentRepositoryInterface
     public function getAll(string $type);
     public function findById(int $id): ?BookingInstrument;
     public function getInstrumentsById(int $userId, string $type);
+    public function getBothBooking();
 }
