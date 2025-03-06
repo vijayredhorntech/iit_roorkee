@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\PI;
+namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use App\Repositories\BookingInstrumentRepositoryInterface;
 use Carbon\Carbon;
 
 
-class BookingController extends Controller
+class StudentBookingController extends Controller
 {
     
     protected BookingInstrumentRepositoryInterface $bookingRepository;
@@ -47,14 +47,17 @@ class BookingController extends Controller
 
 
         $userId = auth()->id();
-   
+          
         /****Get Booking Data ******/
+        // dd($userId);
+        $booking = $this->bookingRepository->getInstrumentsById($userId,'student');
+     
 
-        $booking = $this->bookingRepository->getInstrumentsById($userId,'pi');
-
-        $pi=$booking['pi']; 
+        $student=$booking['student']; 
         $instruments=$booking['instruments'];
-        return view('pi.pages.booking.bookInstrument', ['pi'=>$pi ,'instruments'=>$instruments]);
+     
+        // return view('student.dashboard',['student'=>$student]);
+        return view('student.pages.booking.bookInstrument', ['student'=>$student ,'instruments'=>$instruments]);
     
     }
 
@@ -96,7 +99,7 @@ class BookingController extends Controller
        
         $booking = $this->bookingRepository->create($validatedData);
 
-        return redirect()->route('viewpi.booking')->with('success', 'Booking created successfully!');
+        return redirect()->route('viewstudent.booking')->with('success', 'Booking created successfully!');
      
     }
 
@@ -107,11 +110,13 @@ class BookingController extends Controller
   public function hs_viewbooking(){
 
    /****Get Booking Data ******/
-   $booking = $this->bookingRepository->getAll('pi');
-   $pi=$booking['pi']; 
+
+   $booking = $this->bookingRepository->getAll('student');
+//    dd($booking);
+   $student=$booking['student']; 
    $bookings=$booking['bookings'];
 
-     return view('pi.pages.booking.bookingList', ['pi'=>$pi ,'bookings'=>$bookings]);
+     return view('student.pages.booking.bookingList', ['student'=>$student ,'bookings'=>$bookings]);
 
   }
 

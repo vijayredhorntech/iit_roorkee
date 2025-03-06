@@ -75,6 +75,7 @@ class InstrumentsController extends Controller
         'serviceengineerInformation',
         'warrantyInformation')->paginate(10); 
      
+      
         return view('superadmin.pages.Instruments.instrumentsList',[
             'instruments'=>$instruments
         ]); 
@@ -229,6 +230,7 @@ public function hs_view_instrument($id){
         'labInformation',
         'instrumentsCategory',
         'warrantyInformation')->where('id',$id)->first(); 
+      
       
     //  dd($instruments);
         return view('superadmin.pages.Instruments.viewInstrument',[

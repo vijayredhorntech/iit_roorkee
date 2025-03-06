@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\PIUserMeta;
 use Illuminate\Support\Facades\Auth;
+use App\Models\BookingInstrument;
 use App\Models\StudentUserMeta;
 
 class AccessPIController extends Controller
@@ -16,10 +17,17 @@ class AccessPIController extends Controller
     public function hs_pidashboard(){
        
         $userId = auth()->id();
-        $pi = User::with('pi','bookings')->where('id',$userId)->first();
+        $pi = User::with('pi')->where('id',$userId)->first();
+        $bookings = BookingInstrument::with('instrument')
+        ->where('user_id', $userId)
+        ->orderBy('date', 'desc') // Order by latest booking date
+        ->orderBy('start_time', 'desc') // Order by latest time if same date
+        ->limit(5)
+        ->get();
+
       
         
-        return view('pi.dashboard',['pi'=>$pi]);
+        return view('pi.dashboard',['pi'=>$pi,'bookings'=>$bookings]);
 
     }
 
@@ -68,6 +76,9 @@ class AccessPIController extends Controller
     $pi = User::with('pi')->where('id', $userId)->first();
     return view('pi.pages.student.createStudent', ['pi' => $pi]);
   }
+
+
+
 
 
 

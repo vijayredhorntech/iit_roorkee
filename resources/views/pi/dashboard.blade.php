@@ -254,25 +254,37 @@
                         <tr>
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Sr. No.</td>
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Date</td>
-                        <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Instrument</td>
-                            <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Duration</td>
+                            <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Instrument</td>
+                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Start Time</td>
+                            <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">End Time</td>
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Status</td>
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Cost</td>
                         </tr>
 
-                            <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">1</td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">2024-02-15</td>
+                     
+                        @forelse($bookings as $booking)
+ 
+                        <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
+                        <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">{{ $loop->iteration }}</td>
+                        <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">{{$booking->date}}</td>
                                 <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">
-                                  Microscope
+                                {{$booking->instrument->name}}
                                 </td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">2 hours</td>
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">{{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }}</td>
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">{{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}</td>
 
                                 <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm"><span class="px-2 py-1 bg-success/20 text-success rounded-full text-xs">Completed</span></td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">₹15,000</td>
-                              
-                            </tr>
-    
+                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">₹ {{$booking->instrument->per_hour_cost}}</td>
+                        </tr>
+
+                        @empty
+                        <tr>
+                        <td colspan="7" class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm text-center">
+                        No records found
+                        </td>
+                        </tr>
+                        @endforelse
+                            
                    </table>
               </div>
           </div>

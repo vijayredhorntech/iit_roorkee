@@ -1,4 +1,4 @@
-@extends('pi.layout.layout')
+@extends('student.layout.layout')
 @section('content')
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
@@ -14,24 +14,24 @@
         <div class="p-4 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
             <div class="flex flex-col gap-1">
                 <span class="text-sm text-gray-600">Name</span>
-                <span class="font-medium text-ternary">{{$pi->name}}</span>
+                <span class="font-medium text-ternary">{{$student->name}}</span>
             </div>
             <div class="flex flex-col gap-1">
                 <span class="text-sm text-gray-600">Department</span>
-                <span class="font-medium text-ternary">{{$pi->pi->department}}</span>
+                <span class="font-medium text-ternary">{{$student->student->department}}</span>
             </div>
             <div class="flex flex-col gap-1">
                 <span class="text-sm text-gray-600">Email</span>
-                <span class="font-medium text-ternary">{{$pi->email}}</span>
+                <span class="font-medium text-ternary">{{$student->email}}</span>
             </div>
             <div class="flex flex-col gap-1">
                 <span class="text-sm text-gray-600">Contact</span>
-                <span class="font-medium text-ternary">{{$pi->pi->phone_number}}</span>
+                <span class="font-medium text-ternary">{{$student->student->phone_number}}</span>
             </div>
         </div>
     </div>
    
-    <form action="{{ route('pi.storebooking') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('student.storebooking') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <!-- Booking Section -->
     <div class="w-full grid xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 grid-cols-1 gap-4">
@@ -191,7 +191,7 @@
 
                 if (selectedValue) {
                     $.ajax({
-                        url: "{{ route('pi.getinstrument') }}", // Use Laravel route helper
+                        url: "{{ route('student.getinstrument') }}", // Use Laravel route helper
                         type: 'POST', 
                         data: {
                             instrument: selectedValue,
@@ -268,7 +268,7 @@
 
     if (selectedDate) {
         $.ajax({
-            url: "{{ route('pi.getinstrumentbooking') }}", // Use Laravel route helper
+            url: "{{ route('student.getinstrumentbooking') }}", // Use Laravel route helper
             type: 'POST', 
             data: {
                 instrument: instrument_id,

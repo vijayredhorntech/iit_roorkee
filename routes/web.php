@@ -11,6 +11,7 @@ use App\Http\Controllers\Student\AccessStudentController;
 use App\Http\Controllers\Superadmin\LabController;
 use App\Http\Controllers\Superadmin\InstrumentsController;
 use App\Http\Controllers\PI\BookingController;
+use App\Http\Controllers\Student\StudentBookingController;
 
 
 
@@ -101,6 +102,8 @@ Route::prefix('pi')->group(function () {
         Route::get('/studentview','hs_studentlist')->name('allpi_student');
         Route::get('/view_student/{id}','hs_viewstudent')->name('piview_student.details');
         Route::get('/create_student', 'hs_createstudent')->name('pi.create_student');
+      
+        
         
     });
 
@@ -115,10 +118,15 @@ Route::prefix('pi')->group(function () {
         Route::get('/booking', 'hs_bookingindex')->name('pi.booking');
         Route::post('/getinstrument', 'hs_getinstrument')->name('pi.getinstrument'); 
         Route::post('/storebooking','hs_storebooking')->name('pi.storebooking');
+        Route::get('/viewbooking', 'hs_viewbooking')->name('viewpi.booking');
+        Route::post('/getinstrumentbooking', 'hs_getinstrumentbooking')->name('pi.getinstrumentbooking');
+
         Route::post('/booking/store', 'store')->name('pi.booking.store');
         Route::get('/booking/{id}', 'show')->name('pi.booking.show');
         Route::put('/booking/{id}', 'update')->name('pi.booking.update');
         Route::delete('/booking/{id}', 'destroy')->name('pi.booking.destroy');
+
+        // Route::get('/viewbooking', 'hs_viewbooking')->name('viewpi.booking');
     });
 
 
@@ -128,8 +136,7 @@ Route::prefix('pi')->group(function () {
   
 });
 
-Route::controller(BookingController::class)->group(function () {
-    Route::get('/test', 'show');}); 
+
 
 /******All Student  Route  ********/
 
@@ -137,7 +144,17 @@ Route::prefix('student')->group(function () {
     Route::controller(AccessStudentController::class)->group(function () {
         Route::get('/studentdashboard','hs_studentdashboard')->name('studentdashboard');
     });
+
+    Route::controller(StudentBookingController::class)->group(function () {
+        Route::get('/booking', 'hs_bookingindex')->name('student.booking');
+        Route::post('/getinstrument', 'hs_getinstrument')->name('student.getinstrument'); 
+        Route::post('/storebooking','hs_storebooking')->name('student.storebooking');
+        Route::get('/viewbooking', 'hs_viewbooking')->name('viewstudent.booking');
+        Route::post('/getinstrumentbooking', 'hs_getinstrumentbooking')->name('student.getinstrumentbooking');
+    }); 
 });
+
+
 
 
 

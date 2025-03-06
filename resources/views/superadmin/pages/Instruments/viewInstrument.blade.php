@@ -28,7 +28,7 @@
                           <span class="text-gray-600">Location:</span>
                           <span class="font-medium">{{ $instrument->labInformation->room_number ? $instrument->labInformation->room_number : 'No Name Available' }}</span>
                           <span class="text-gray-600">Accessories:</span>
-                          <span class="font-medium">7 <a href="{{route('view_acceossries')}}" class="text-danger ml-2 underline">View All</a></span>
+                          <span class="font-medium"><a href="{{ route('superadmin.view_acceossries', ['id' => $instrument->id]) }}" class="text-danger ml-2 underline">View All</a></span>
                       </div>
                   </div>
 
@@ -276,7 +276,7 @@
     var usageOptions = {
         series: [{
             name: 'Hours Used',
-            data: [30, 40, 35, 50, 49, 60, 70]
+            data: [0, 0, 0, 0, 0, 0, 0]
         }],
         chart: {
             type: 'area',
@@ -319,7 +319,7 @@
     var servicesOptions = {
         series: [{
             name: 'Service Cost',
-            data: [15000, 12000, 18000, 22000, 16000]
+            data: [0, 0, 0, 0, 0]
         }],
         chart: {
             type: 'bar',
