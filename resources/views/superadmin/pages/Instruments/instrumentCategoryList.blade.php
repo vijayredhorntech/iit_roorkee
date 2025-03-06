@@ -49,8 +49,8 @@
                                 <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">{{$category->name}}</td>
                                 <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm"> {{$category->description}}</td>
                                 <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">
-                                <a href="{{route('instrument_list')}}"  title="View Instruments" class="w-max bg-success/10 text-success h-6 px-1 flex justify-center items-center rounded-[3px] hover:bg-success hover:text-white transition ease-in duration-2000">
-                                            <span class="font-semibold"><i class="fa fa-eye"></i> 5</span>
+                                <a href="#"  title="View Instruments" class="w-max bg-success/10 text-success h-6 px-1 flex justify-center items-center rounded-[3px] hover:bg-success hover:text-white transition ease-in duration-2000">
+                                            <span class="font-semibold"><i class="fa fa-eye"></i> </span>
                                             </a>
                                 </td>
                                 <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">
