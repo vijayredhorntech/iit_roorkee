@@ -70,7 +70,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-warning bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Pending Services</span>
-                  <span class="font-bold text-2xl text-ternary">5</span>
+                  <span class="font-bold text-2xl text-ternary"></span>
               </div>
               <div>
                   <i class="fa fa-wrench text-4xl text-warning"></i>
@@ -81,7 +81,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-secondary bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Instrument Categories</span>
-                  <span class="font-bold text-2xl text-ternary">8</span>
+                  <span class="font-bold text-2xl text-ternary">  {{ isset($total_instrumentcategory) ? $total_instrumentcategory : '0' }} </span>
               </div>
               <div>
                   <i class="fa fa-list text-4xl text-secondary"></i>
@@ -92,7 +92,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-primary bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Today's Bookings</span>
-                  <span class="font-bold text-2xl text-ternary">15</span>
+                  <span class="font-bold text-2xl text-ternary">0</span>
               </div>
               <div>
                   <i class="fa fa-calendar-day text-4xl text-primary"></i>
@@ -103,7 +103,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-warning bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Pending Approvals</span>
-                  <span class="font-bold text-2xl text-ternary">7</span>
+                  <span class="font-bold text-2xl text-ternary">0</span>
               </div>
               <div>
                   <i class="fa fa-clock text-4xl text-warning"></i>

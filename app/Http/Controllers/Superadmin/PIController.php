@@ -10,6 +10,7 @@ use App\Models\PIUserMeta;
 use App\Models\StudentUserMeta;
 use App\Models\Instrument;
 use App\Models\BookingInstrument;
+use App\Models\InstrumentsCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -34,8 +35,9 @@ public function hs_dashboard(){
         $student_count = StudentUserMeta::count(); // Fixed typo from $student_cout to $student_count
         $total_instrument = Instrument::count();
         $total_booking=BookingInstrument::count(); 
+        $total_instrumentcategory=InstrumentsCategory::count(); 
     
-        return view('superadmin.dashboard', compact('lab_count', 'pi_count', 'student_count', 'total_instrument','total_booking'));
+        return view('superadmin.dashboard', compact('lab_count', 'pi_count', 'student_count', 'total_instrument','total_booking','total_instrumentcategory'));
  
     
 
