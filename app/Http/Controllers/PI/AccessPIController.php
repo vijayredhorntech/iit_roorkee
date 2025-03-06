@@ -16,7 +16,8 @@ class AccessPIController extends Controller
     public function hs_pidashboard(){
        
         $userId = auth()->id();
-        $pi = User::with('pi')->where('id',$userId)->first();
+        $pi = User::with('pi','bookings')->where('id',$userId)->first();
+      
         
         return view('pi.dashboard',['pi'=>$pi]);
 
@@ -26,6 +27,7 @@ class AccessPIController extends Controller
     /*********Student list ********/
    public function  hs_studentlist(){
 
+    
     $userId = auth()->id();
     $pi = User::with('pi')->where('id',$userId)->first();
     $students=StudentUserMeta::with('user_data')->where('pi_id',$userId)->paginate(10); 
@@ -66,6 +68,8 @@ class AccessPIController extends Controller
     $pi = User::with('pi')->where('id', $userId)->first();
     return view('pi.pages.student.createStudent', ['pi' => $pi]);
   }
+
+
 
 
 

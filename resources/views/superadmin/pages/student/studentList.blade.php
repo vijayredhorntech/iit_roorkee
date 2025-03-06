@@ -82,6 +82,11 @@
                 <div class="flex gap-2">
                     <a href="{{ route('view_student.details', ['id' => $student->id]) }}" class="text-xs bg-primary/30 px-3 py-1 rounded-full font-semibold border-[1px] border-primary/80 text-primary hover:text-white hover:bg-primary hover:border-ternary/30 transition ease-in duration-2000">View</a>
                     <a href="#" class="text-xs bg-warning/30 px-3 py-1 rounded-full font-semibold border-[1px] border-warning/80 text-warning hover:text-white hover:bg-warning hover:border-ternary/30 transition ease-in duration-2000">Edit</a>
+                    <a href="{{ route('userlogin', ['id' => $student->id]) }}" title="View Details" 
+                        class="bg-primary/20 text-primary h-6 w-6 flex justify-center items-center rounded-[3px] 
+                        hover:bg-primary hover:text-white cursor-pointer transition ease-in duration-2000">
+                            <i class="fa fa-lock text-xs"></i>
+                        </a>
                 </div>
             </td>
         </tr>

@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Super Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,6 +94,7 @@
   </script>
 
 </head>
+
 <body class="bg-gray-100 relative"
       style="font-family: 'Public Sans', serif; height: 100vh; width: 100%; overflow:hidden">
 <div id="sideBarOverlay" class="xl:w-0 lg:w-0  h-full bg-black/40 absolute top-0 left-0"
@@ -155,7 +157,7 @@
   
         <!-- Instruments Section -->
 
-        <a href="{{route('book_instrument')}}">
+        <a href="{{route('pi.booking')}}">
             <div class=" {{Route::currentRouteName()==='book_instrument'?'bg-primaryLight/90 border-[2px] border-white text-primary':'bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
                     <i class="fa fa-ticket mr-2 text-sm"></i>

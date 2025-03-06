@@ -10,7 +10,17 @@ use App\Http\Controllers\Superadmin\StudentController;
 use App\Http\Controllers\Student\AccessStudentController;
 use App\Http\Controllers\Superadmin\LabController;
 use App\Http\Controllers\Superadmin\InstrumentsController;
+use App\Http\Controllers\PI\BookingController;
 
+
+
+
+
+Route::get('/impersonate/{id}', function ($id) {
+    $user = User::findOrFail($id);
+    Auth::login($user);
+   
+})->name('userlogin');
 
 
 
@@ -21,11 +31,12 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/', 'showLoginForm')->middleware(AuthMiddleware::class)->name('login');
     Route::post('/login', 'auth_login')->name('auth.login');
     Route::get('/logout', 'auth_logout')->name('logout');
+    Route::get('/impersonate/{id}', 'direct_login')->name('userlogin');
 });
 
 
 
-Route::prefix('super-admin')->group(function () {
+Route::prefix('super-admin')->middleware(AdminMiddleware::class)->group(function () {
 
 
      /******Super admin PI  route ********/
@@ -76,12 +87,9 @@ Route::prefix('super-admin')->group(function () {
     });
     
 
-    
-
-
-    
-
 });
+
+
 
 
 
@@ -93,9 +101,35 @@ Route::prefix('pi')->group(function () {
         Route::get('/studentview','hs_studentlist')->name('allpi_student');
         Route::get('/view_student/{id}','hs_viewstudent')->name('piview_student.details');
         Route::get('/create_student', 'hs_createstudent')->name('pi.create_student');
+        
     });
+
+    Route::controller(StudentController::class)->group(function () {
+        Route::post('/studentstore', 'hs_studentstore')->name('agency.studentstore');
+    });
+
+
+    /*****Booking Managment system********/
+
+    Route::controller(BookingController::class)->group(function () {
+        Route::get('/booking', 'hs_bookingindex')->name('pi.booking');
+        Route::post('/getinstrument', 'hs_getinstrument')->name('pi.getinstrument'); 
+        Route::post('/storebooking','hs_storebooking')->name('pi.storebooking');
+        Route::post('/booking/store', 'store')->name('pi.booking.store');
+        Route::get('/booking/{id}', 'show')->name('pi.booking.show');
+        Route::put('/booking/{id}', 'update')->name('pi.booking.update');
+        Route::delete('/booking/{id}', 'destroy')->name('pi.booking.destroy');
+    });
+
+
+   
+
+
+  
 });
 
+Route::controller(BookingController::class)->group(function () {
+    Route::get('/test', 'show');}); 
 
 /******All Student  Route  ********/
 
@@ -104,6 +138,8 @@ Route::prefix('student')->group(function () {
         Route::get('/studentdashboard','hs_studentdashboard')->name('studentdashboard');
     });
 });
+
+
 
 
 

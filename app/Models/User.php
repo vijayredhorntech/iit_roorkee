@@ -102,4 +102,16 @@ class User extends Authenticatable
     {
         return $this->student()->exists();
     }
+
+    /**
+     * *
+     * * Get booking data
+     * *
+     *  @return \Illuminate\Database\Eloquent\Relations\Hasmany
+     */
+    public function bookings()
+    {
+        return $this->hasMany(BookingInstrument::class, 'user_id', 'id');
+    }
+    
 }

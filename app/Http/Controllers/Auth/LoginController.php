@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class LoginController extends Controller
@@ -38,4 +39,23 @@ class LoginController extends Controller
         Auth::logout();
         return redirect('/')->with('message', 'Logout successful');
     }
+
+
+    /******* */
+
+   
+    public function direct_login($id)
+    {
+        // Check if the logged-in user is a super admin
+        
+        if (Auth::check() && Auth::user()->type === 'superadmin') {
+            $user = User::findOrFail($id);
+            Auth::login($user);
+            return redirect('/dashboard'); // Redirect after successful login
+        }
+    
+        // If not a super admin, deny access
+        abort(403, 'Unauthorized action.');
+    }
+    
 }

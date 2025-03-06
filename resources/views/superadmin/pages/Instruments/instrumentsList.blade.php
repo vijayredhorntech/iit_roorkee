@@ -44,7 +44,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-secondary bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Instrument Categories</span>
-                  <span class="font-bold text-2xl text-ternary">8</span>
+                  <span class="font-bold text-2xl text-ternary"></span>
               </div>
               <div>
                   <i class="fa fa-list text-4xl text-secondary"></i>

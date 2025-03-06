@@ -42,15 +42,15 @@ class PIController extends Controller
         'alt_email' => 'nullable|email|max:100',
         'phone_number' => 'nullable|string|max:15',
         'mobile' => 'nullable|string|max:15',
-        'lab_room' => 'required|integer',
+        'lab_room' => 'required|string',
         'specialization' => 'required|string|max:255',
         'qualification' => 'required|string|max:255',
-        'joining_date' => 'required|date',
         'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
 
 
+   
     DB::beginTransaction(); // Start Transaction
 
     try {

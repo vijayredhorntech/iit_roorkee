@@ -11,9 +11,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use App\Services\StudentService;
 
 class StudentController extends Controller
 {
+    
+    /*****Store the user *******/
+    public function __construct(StudentService $studentService)
+    {
+        $this->studentService = $studentService;
+    }
+
+
     
 
     public function hs_createstudent() {
@@ -40,70 +49,29 @@ class StudentController extends Controller
                 'profile_photo'  => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
             ]);
 
-            
-        DB::beginTransaction(); // Start Transaction
 
-        try {
-            // Handle Profile Photo Upload
-            $profile = null;
-            if ($request->hasFile('profile_photo')) {
-                $file = $request->file('profile_photo');
-                $imageName = Str::slug($request->first_name) . '_' . time() . '.' . $file->getClientOriginalExtension();
-                $destinationPath = public_path('images/student/images/');
+            // service for create student 
 
-                if (!File::exists($destinationPath)) {
-                    File::makeDirectory($destinationPath, 0755, true, true);
-                }
+            $studentCreated = $this->studentService->createStudent(auth()->user(), $request->all());
+          if($studentCreated){
 
-                $file->move($destinationPath, $imageName);
-                $profile = 'images/student/images/' . $imageName; 
-            }
-
-            // Create User
-            $user = new User();
-            $user->name = $request->first_name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->email); 
-            $user->type = 'student';
-            $user->profile_name = $profile;
-            $user->save();
-
-            // Create PIUserMeta
-            $studentMeta = new StudentUserMeta();
-            $studentMeta->pi_id = $request->pi_id; 
-            $studentMeta->sid = $user->id; 
-            $studentMeta->student_id  = $request->student_aid;
-            $studentMeta->address = $request->office_address;
-            $studentMeta->lastname = $request->last_name;
-            $studentMeta->department = $request->department;
-            $studentMeta->student_year = $request->studyyear;
-            $studentMeta->altemail = $request->alt_email;
-            $studentMeta->mobile_number = $request->mobile;
-            $studentMeta->research_area = $request->research_area;
-            $studentMeta->address = $request->address;
-            $studentMeta->status = "active";
-            $studentMeta->action =  '1';
-            $studentMeta->login_status = "0";
-            $studentMeta->save();
-
-            DB::commit(); // Commit the transaction
-
-      
             $user = auth()->user(); // Get the logged-in user
 
-            if ($user->type == "pi") {  
+            if ($user->type === "pi") {  
                 return redirect()->route('allpi_student')->with('success', 'Student added successfully.');
             } else {  
                 return redirect()->route('alldetails_student')->with('success', 'Student added successfully.');
             }
+          }else{
+            return back()->withErrors(['error' => 'Failed to create student. Please try again.']);
+          }
+
+        
+           
 
 
            
-        } catch (\Exception $e) {
-            dd($e);
-            DB::rollBack(); // Rollback on error
-            return redirect()->back()->with('error', 'Error saving PI Metadata: ' . $e->getMessage());
-        }
+        
     }
 
     /*****View sutdent *******/

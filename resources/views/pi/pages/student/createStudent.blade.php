@@ -21,7 +21,7 @@
 @endif
 
     <div id="formDiv" class="w-full border-b-[2px] border-b-ternary/10 shadow-lg shadow-ternary/20">
-    <form action="{{ route('student_store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('agency.studentstore') }}" method="POST" enctype="multipart/form-data">
            @csrf
            
             <div class="w-full grid xl:grid-cols-4 gap-2 p-4">

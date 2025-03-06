@@ -218,23 +218,6 @@ public function hs_Instrumentstore(Request $request)
 
 
 
-/**
- * Handles file uploads efficiently.
- */
-private function uploadFile($file, $folder, $name)
-{
-    $filename = Str::slug($name) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-    $destinationPath = public_path("images/$folder/");
-
-    // Ensure directory exists
-    if (!File::exists($destinationPath)) {
-        File::makeDirectory($destinationPath, 0755, true, true);
-    }
-
-    // Move file and return the stored path
-    $file->move($destinationPath, $filename);
-    return "images/$folder/$filename";
-}
 
 
 
@@ -262,8 +245,11 @@ public function hs_add_accessories($id){
 }
 
 
+
+/*********Add accessories *********/
 public function hs_accessoriesstore(Request $request){
 
+//    dd($request->all());
     $validator = Validator::make($request->all(), [
         'instrument_id' => 'required|integer',
         'accessory_type' => 'required|string|max:255',
@@ -278,21 +264,67 @@ public function hs_accessoriesstore(Request $request){
         'accessories_photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
+    $accessoriePhotos = [];
+    if ($request->hasFile('accessories_photos')) {
+        foreach ($request->file('accessories_photos') as $photo) {
+            $accessoriePhotos[] = $this->uploadFile($photo, 'accessories/images', $request->name);
+        }
+    }
+
+    $operation_manual = $request->hasFile('operation_manual') ? $this->uploadFile($request->file('manual'), 'accessories/operation_manual', $request->name) : null;
+
     $accessorie=new InstrumentAccessory(); 
-    $accessorie->instrument_id=$request->accessory_name;
-    $accessorie->accessoryType=$request->accessory_name;
+    $accessorie->instrument_id=$request->instrument_id;
+    $accessorie->accessoryType=$request->accessory_type;
     $accessorie->name=$request->accessory_name;
-    $accessorie->modelNumber=$request->accessory_name;
-    $accessorie->serialNumber=$request->accessory_name;
-    $accessorie->purpose=$request->accessory_name;
-    $accessorie->quantity=$request->accessory_name;
-    $accessorie->status=$request->accessory_name;
-    $accessorie->purchase_date=$request->accessory_name;
-    $accessorie->warranty_period=$request->accessory_name;
-    $accessorie->manual=$request->accessory_name;
-    $accessorie->instrument_id=$request->accessory_name;
+    $accessorie->modelNumber=$request->accessory_modelnumber;
+    $accessorie->serialNumber=$request->accessory_serialnumber;
+    $accessorie->purpose=$request->accessory_description;
+    $accessorie->quantity=$request->accessory_quantity;
+    $accessorie->status=$request->accessory_status;
+    $accessorie->purchase_date=$request->purchase_date;
+    $accessorie->warranty_period=$request->warrentyperiod;
+    $accessorie->photos=json_encode($accessoriePhotos);
+    $accessorie->manual=$operation_manual;
     $accessorie->save();
+    return redirect()->route('superadmin.instrument_list')->with('success', 'Instrument added successfully!');
 
 
 }
+
+
+/**
+ * Handles file uploads efficiently.
+ */
+private function uploadFile($file, $folder, $name)
+{
+    $filename = Str::slug($name) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+    $destinationPath = public_path("images/$folder/");
+
+    // Ensure directory exists
+    if (!File::exists($destinationPath)) {
+        File::makeDirectory($destinationPath, 0755, true, true);
+    }
+
+    // Move file and return the stored path
+    $file->move($destinationPath, $filename);
+    return "images/$folder/$filename";
+}
+
+
+
+
+/********View Acceossries ********/
+public function hs_view_acceossries($id){
+
+    $accessories = InstrumentAccessory::with('instrumentInformation')->where('instrument_id', $id)->get();
+    $instrument=Instrument::where('id',$id)->first(); 
+   
+    return view('superadmin.pages.Instruments.viewAcceossries',['accessories'=>$accessories,'instrument'=>$instrument]); 
+}
+
+
+
+
+
 }

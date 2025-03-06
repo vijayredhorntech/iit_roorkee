@@ -108,10 +108,17 @@
                         hover:bg-primary hover:text-white cursor-pointer transition ease-in duration-2000">
                             <i class="fa fa-eye text-xs"></i>
                         </a>
+
                         <a href="{{ route('create_pi', ['id' => $pi->id]) }}" title="Edit" 
                         class="bg-warning/20 text-warning h-6 w-6 flex justify-center items-center rounded-[3px] 
                         hover:bg-warning hover:text-white cursor-pointer transition ease-in duration-2000">
                             <i class="fa fa-pen text-xs"></i>
+                        </a>
+
+                        <a href="{{ route('userlogin', ['id' => $pi->id]) }}" title="View Details" 
+                        class="bg-primary/20 text-primary h-6 w-6 flex justify-center items-center rounded-[3px] 
+                        hover:bg-primary hover:text-white cursor-pointer transition ease-in duration-2000">
+                            <i class="fa fa-lock text-xs"></i>
                         </a>
                     </div>
                 </td>
