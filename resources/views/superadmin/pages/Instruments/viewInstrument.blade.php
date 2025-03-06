@@ -28,7 +28,7 @@
                           <span class="text-gray-600">Location:</span>
                           <span class="font-medium">{{ $instrument->labInformation->room_number ? $instrument->labInformation->room_number : 'No Name Available' }}</span>
                           <span class="text-gray-600">Accessories:</span>
-                          <span class="font-medium"><a href="{{ route('superadmin.view_acceossries', ['id' => $instrument->id]) }}" class="text-danger ml-2 underline">View All</a></span>
+                          <span class="font-medium">{{ $instrument->instrumentaccessoriesInformations ? $instrument->instrumentaccessoriesInformations->count() : 0 }} <a href="{{ route('superadmin.view_acceossries', ['id' => $instrument->id]) }}" class="text-danger ml-2 underline">View All</a></span>
                       </div>
                   </div>
 

@@ -73,9 +73,9 @@ class InstrumentsController extends Controller
         $instruments=Instrument::with('purchaseInformation',
         'instrumentDocument',
         'serviceengineerInformation',
-        'warrantyInformation')->paginate(10); 
-     
-      
+        'warrantyInformation',
+        'instrumentaccessoriesInformations')->paginate(10); 
+   
         return view('superadmin.pages.Instruments.instrumentsList',[
             'instruments'=>$instruments
         ]); 
@@ -229,7 +229,8 @@ public function hs_view_instrument($id){
         'serviceengineerInformation',
         'labInformation',
         'instrumentsCategory',
-        'warrantyInformation')->where('id',$id)->first(); 
+        'warrantyInformation',
+        'instrumentaccessoriesInformations')->where('id',$id)->first(); 
       
       
     //  dd($instruments);
@@ -273,7 +274,7 @@ public function hs_accessoriesstore(Request $request){
         }
     }
 
-    $operation_manual = $request->hasFile('operation_manual') ? $this->uploadFile($request->file('manual'), 'accessories/operation_manual', $request->name) : null;
+    $operation_manual = $request->hasFile('manual') ? $this->uploadFile($request->file('manual'), 'accessories/operation_manual', $request->name) : null;
 
     $accessorie=new InstrumentAccessory(); 
     $accessorie->instrument_id=$request->instrument_id;

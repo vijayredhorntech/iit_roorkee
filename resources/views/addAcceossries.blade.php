@@ -1,4 +1,4 @@
-@extends('layout.layout')
+@extends('superadmin.layout.layout')
 @section('content')
 <div class="w-full border-[1px] border-t-[4px] border-primary/20 border-t-primary bg-white flex gap-2 flex-col shadow-lg shadow-gray-300">
     <div class="bg-primary/10 px-4 py-2 border-b-[2px] border-b-primary/20 flex justify-between">

@@ -111,7 +111,7 @@
                     <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">
                         <div class="flex gap-2 items-center">
                         <a href="{{ route('superadmin.view_acceossries', ['id' => $instrument->id]) }}"  title="View Acceossries" class="bg-success/10 text-success h-6 px-1 flex justify-center items-center rounded-[3px] hover:bg-success hover:text-white transition ease-in duration-2000">
-                            <span class="font-semibold"><i class="fa fa-eye"></i> </span>
+                            <span class="font-semibold"><i class="fa fa-eye"></i>   {{ $instrument->instrumentaccessoriesInformations ? $instrument->instrumentaccessoriesInformations->count() : 0 }}</span>
                             </a>   
                         <a href="{{ route('superadmin.add_accessories', ['id' => $instrument->id]) }}" title="Add Acceossries" class="bg-primary/10 text-primary h-6 w-8 flex justify-center items-center rounded-[3px] hover:bg-primary hover:text-white transition ease-in duration-2000">
                                 <i class="fa fa-plus"></i>

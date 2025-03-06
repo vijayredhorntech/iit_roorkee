@@ -7,7 +7,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-primary bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Total PIs</span>
-                  <span class="font-bold text-2xl text-ternary">45</span>
+                  <span class="font-bold text-2xl text-ternary">{{ isset($pi_count) ? $pi_count : '0' }}</span>
               </div>
               <div>
                   <i class="fa fa-users text-4xl text-primary"></i>
@@ -18,7 +18,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-success bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Active PIs</span>
-                  <span class="font-bold text-2xl text-ternary">38</span>
+                  <span class="font-bold text-2xl text-ternary">{{ isset($active_pi) ? $active_pi : '0' }}</span>
               </div>
               <div>
                   <i class="fa fa-user-check text-4xl text-success"></i>
@@ -29,7 +29,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-warning bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Inactive PIs</span>
-                  <span class="font-bold text-2xl text-ternary">7</span>
+                  <span class="font-bold text-2xl text-ternary">{{ isset($inactive_pi) ? $inactive_pi : '0' }}</span>
               </div>
               <div>
                   <i class="fa fa-user-clock text-4xl text-warning"></i>
@@ -40,7 +40,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-secondary bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Departments</span>
-                  <span class="font-bold text-2xl text-ternary">12</span>
+                  <span class="font-bold text-2xl text-ternary">4</span>
               </div>
               <div>
                   <i class="fa fa-building-user text-4xl text-secondary"></i>

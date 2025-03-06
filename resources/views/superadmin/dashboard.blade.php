@@ -4,7 +4,7 @@
             <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-primary bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Total Labs</span>
-                  <span class="font-bold text-2xl text-ternary">10</span>
+                  <span class="font-bold text-2xl text-ternary">{{ isset($lab_count) ? $lab_count : '0' }}</span>
               </div>
               <div>
                   <i class="fa fa-building-columns text-4xl text-primary"></i>
@@ -15,7 +15,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-secondary bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Principal Investigators</span>
-                  <span class="font-bold text-2xl text-ternary">15</span>
+                  <span class="font-bold text-2xl text-ternary">{{ isset($pi_count) ? $pi_count : '0' }}</span>
               </div>
               <div>
                   <i class="fa fa-user-tie text-4xl text-secondary"></i>
@@ -26,7 +26,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-success bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Total Students</span>
-                  <span class="font-bold text-2xl text-ternary">248</span>
+                  <span class="font-bold text-2xl text-ternary">{{ isset($student_count) ? $student_count : '0' }}</span>
               </div>
               <div>
                   <i class="fa fa-user-graduate text-4xl text-success"></i>
@@ -37,7 +37,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-primary bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Total Instruments</span>
-                  <span class="font-bold text-2xl text-ternary">75</span>
+                  <span class="font-bold text-2xl text-ternary">{{ isset($total_instrument) ? $total_instrument : '0' }}</span>
               </div>
               <div>
                   <i class="fa fa-microscope text-4xl text-primary"></i>
@@ -48,7 +48,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-success bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Active Bookings</span>
-                  <span class="font-bold text-2xl text-ternary">28</span>
+                  <span class="font-bold text-2xl text-ternary"> {{ isset($total_booking) ? $total_booking : '0' }} </span>
               </div>
               <div>
                   <i class="fa fa-calendar-check text-4xl text-success"></i>
@@ -59,7 +59,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-danger bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Instruments Down</span>
-                  <span class="font-bold text-2xl text-ternary">3</span>
+                  <span class="font-bold text-2xl text-ternary"></span>
               </div>
               <div>
                   <i class="fa fa-triangle-exclamation text-4xl text-danger"></i>

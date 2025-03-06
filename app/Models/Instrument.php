@@ -31,5 +31,9 @@ class Instrument extends Model
     public function  labInformation(){
         return $this->hasOne(Lab::class, 'id','lab_id');
     }
+
+    public function  instrumentaccessoriesInformations(){
+        return $this->hasMany(InstrumentAccessory::class, 'instrument_id','id');
+    }
     
 }

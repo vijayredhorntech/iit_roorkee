@@ -42,7 +42,9 @@ Route::prefix('super-admin')->middleware(AdminMiddleware::class)->group(function
 
      /******Super admin PI  route ********/
 
+    //  Route::get('/dashboard', function () { return view('superadmin.dashboard');})->middleware(AdminMiddleware::class)
     Route::controller(PIController::class)->group(function () {
+        Route::get('/dashboard','hs_dashboard')->name('dashboard');
         Route::get('/pi', 'hs_picreste')->name('pi_create');
         Route::post('/pistore', 'hs_pistore')->name('pi_store');
         Route::get('/view_pi','hs_viewallpi')->name('alldetails_pi');
@@ -174,7 +176,7 @@ Route::get('/forget_password', function () { return view('forgetPassword');})->n
 Route::get('/password_link_sent', function () { return view('passwordLinkSent');})->name('password_link_sent');
 
 
-Route::get('/dashboard', function () { return view('superadmin.dashboard');})->middleware(AdminMiddleware::class)->name('dashboard');
+
 
 
 Route::prefix('instrument')->group(function () {

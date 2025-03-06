@@ -1,4 +1,4 @@
-@extends('pi.layout.layout')
+@extends('superadmin.layout.layout')
 @section('content')
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
@@ -14,19 +14,19 @@
         <div class="p-4 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
             <div class="flex flex-col gap-1">
                 <span class="text-sm text-gray-600">Name</span>
-                <span class="font-medium text-ternary">{{$pi->name}}</span>
+                <span class="font-medium text-ternary"></span>
             </div>
             <div class="flex flex-col gap-1">
                 <span class="text-sm text-gray-600">Department</span>
-                <span class="font-medium text-ternary">{{$pi->pi->department}}</span>
+                <span class="font-medium text-ternary"></span>
             </div>
             <div class="flex flex-col gap-1">
                 <span class="text-sm text-gray-600">Email</span>
-                <span class="font-medium text-ternary">{{$pi->email}}</span>
+                <span class="font-medium text-ternary"></span>
             </div>
             <div class="flex flex-col gap-1">
                 <span class="text-sm text-gray-600">Contact</span>
-                <span class="font-medium text-ternary">{{$pi->pi->phone_number}}</span>
+                <span class="font-medium text-ternary"></span>
             </div>
         </div>
     </div>
@@ -48,17 +48,7 @@
                     <select name="instrument_id" id="instrument_select"   required class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
                       <option value="">--- Select Lab ---</option>
                
-                           @forelse($instruments as $instrument)
-                 
-                                <option value="{{$instrument->id }}">{{ $instrument->name }} - {{ $instrument->labInformation->name}}</option>
-                           @empty
-                                <option >No PI found</option>
-                           @endforelse
-                                  </select>
-
-                            @if ($errors->has('lab_id'))
-                                <span class="text-red-500">{{ $errors->first('lab_id') }}</span>
-                            @endif 
+                          
                      </div>
 
                 <!-- Date Selection -->
@@ -176,8 +166,8 @@
 <script>
     $(document).ready(function() {
 
-        $("#instrument_photos").hide(); 
-        $("#instrument_details").hide(); 
+        // $("#instrument_photos").hide(); 
+        // $("#instrument_details").hide(); 
 
 
         $('#instrument_select').select2({

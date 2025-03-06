@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Superadmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Lab;
 use App\Models\PIUserMeta;
+use App\Models\StudentUserMeta;
+use App\Models\Instrument;
+use App\Models\BookingInstrument;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -18,6 +22,30 @@ use Illuminate\Support\Facades\Hash;
 class PIController extends Controller
 {
     
+
+
+
+/*****Remove the dashboard */
+public function hs_dashboard(){
+   
+  
+        $lab_count = Lab::count(); 
+        $pi_count = PIUserMeta::count(); 
+        $student_count = StudentUserMeta::count(); // Fixed typo from $student_cout to $student_count
+        $total_instrument = Instrument::count();
+        $total_booking=BookingInstrument::count(); 
+    
+        return view('superadmin.dashboard', compact('lab_count', 'pi_count', 'student_count', 'total_instrument','total_booking'));
+ 
+    
+
+    
+ 
+    // return view('superadmin.dashboard');
+}
+
+
+
     /*******pi create ******/
 
     public function hs_picreste(){
@@ -114,7 +142,10 @@ class PIController extends Controller
 public function hs_viewallpi(){
     $allpi = User::with('pi')->where('type', 'pi')->paginate(10);
 
-     return view('superadmin.pages.pi.piList',['allpi'=>$allpi]);
+    $pi_count = PIUserMeta::count(); 
+    $active_pi = PIUserMeta::where('status', 'active')->count();
+    $inactive_pi = PIUserMeta::where('status', 'inactive')->count();
+     return view('superadmin.pages.pi.piList',['allpi'=>$allpi,'pi_count'=>$pi_count,'active_pi'=>$active_pi,'inactive_pi'=>$inactive_pi]);
 }
 
 

@@ -26,7 +26,7 @@
             <img src="{{ asset($images[0]) }}" alt="EDS Detector" class="w-full h-48 object-cover">
 
             <div class="p-4">
-                <h3 class="font-semibold text-primary text-lg mb-2">EDS Detector</h3>
+                <h3 class="font-semibold text-primary text-lg mb-2">{{$accessory->name}}</h3>
                 <div class="grid grid-cols-2 gap-2 text-sm mb-4">
                     <span class="text-gray-600">Model:</span>
                     <span class="font-medium">{{$accessory->modelNumber}}</span>
@@ -39,11 +39,18 @@
                 </div>
                 <p class="text-sm text-gray-600 mb-4">  {{$accessory->purpose}} </p>
                 <div class="flex gap-2">
-                    <a href="#" class="flex items-center gap-2 p-2 border rounded hover:bg-gray-50">
-                        <i class="fa fa-file-pdf text-danger"></i>
-                        <span class="text-sm">Manual</span>
-                    </a>
-                    <a href="#" class="flex items-center gap-2 p-2 border rounded hover:bg-gray-50">
+                <a href="{{ $accessory->manual ? asset($accessory->manual) : '#' }}" 
+                        class="flex items-center gap-2 p-2 border rounded hover:bg-gray-50"
+                        target="{{ $accessory->manual ? '_blank' : '_self' }}" 
+                        rel="noopener noreferrer">
+                            <i class="fa fa-file-pdf text-danger"></i>
+                            <span class="text-sm">Manual</span>
+                        </a>
+
+                        <a href="{{ $accessory->manual ? asset($accessory->manual) : '#' }}" 
+                        class="flex items-center gap-2 p-2 border rounded hover:bg-gray-50"
+                        target="{{ $accessory->manual ? '_blank' : '_self' }}" 
+                        rel="noopener noreferrer">
                         <i class="fa fa-file-pdf text-danger"></i>
                         <span class="text-sm">Specs</span>
                     </a>
