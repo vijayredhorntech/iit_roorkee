@@ -141,6 +141,8 @@
           
           <!-- Documents -->
           <div class="px-4 pb-4 grid xl:grid-cols-3 gap-4">
+
+          
              <a href="{{ isset($instrument->instrumentDocument->operation_manual) ? asset($instrument->instrumentDocument->operation_manual) : '#' }}" 
                 target="{{ isset($instrument->instrumentDocument->operation_manual) ? '_blank' : '_self' }}"
                 class="flex items-center gap-2 p-3 border rounded-lg hover:bg-gray-50">
@@ -213,22 +215,7 @@
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Action</td>
                         </tr>
 
-                            <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">1</td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">2024-02-15</td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm"><span class="px-2 py-1 bg-warning/20 text-warning rounded-full text-xs">Maintenance</span></td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">Regular maintenance and calibration</td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">John Doe</td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">₹15,000</td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">
-                                    <div class="flex gap-2 items-center">
-                                    
-                                        <a href="{{route('view_instrument')}}"  title="View Invoice" class="bg-success/10 text-success h-6 w-8 flex justify-center items-center rounded-[3px] hover:bg-success hover:text-white transition ease-in duration-2000">
-                                            <i class="fa fa-eye"></i>
-                                        </a >
-                                    </div>
-                                </td>
-                            </tr>
+                           
     
                    </table>
               </div>
@@ -253,16 +240,7 @@
                             <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Cost</td>
                         </tr>
 
-                            <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">1</td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-bold text-sm">2024-02-15</td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">Dr. Smith</td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">2 hours</td>
-
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm"><span class="px-2 py-1 bg-success/20 text-success rounded-full text-xs">Completed</span></td>
-                                <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">₹15,000</td>
-                              
-                            </tr>
+                           
     
                    </table>
               </div>
