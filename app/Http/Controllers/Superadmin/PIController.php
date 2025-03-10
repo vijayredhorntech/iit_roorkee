@@ -15,15 +15,20 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-
-
-
+use App\Events\UserRegistered;
+use App\Contracts\PIRepositoryInterface;
+use Carbon\Carbon;
 
 
 class PIController extends Controller
 {
     
+    protected $piRepository;
 
+    public function __construct(PIRepositoryInterface $piRepository)
+    {
+        $this->piRepository = $piRepository;
+    }
 
 
 /*****Remove the dashboard */
@@ -36,8 +41,66 @@ public function hs_dashboard(){
         $total_instrument = Instrument::count();
         $total_booking=BookingInstrument::count(); 
         $total_instrumentcategory=InstrumentsCategory::count(); 
+        // $topInstruments = BookingInstrument::select('instrument_id', DB::raw('COUNT(*) as total_bookings'))
+        // ->groupBy('instrument_id')
+        // ->orderByDesc('total_bookings')
+        // ->limit(5)
+        // ->get();
+        $allBookings = BookingInstrument::with('instrument')
+        ->whereBetween('date', [
+            now()->subMonth()->startOfMonth()->toDateString(), 
+            now()->subMonth()->endOfMonth()->toDateString()
+        ])
+        ->get();
+
+        // $uniqueInstrumentSum = BookingInstrument::selectRaw('instrument_id, COUNT(*) as count')
+        // ->groupBy('instrument_id')
+        // ->pluck('count', 'instrument_id')
+        // ->whereBetween('date', [
+        //     now()->subMonth()->startOfMonth()->toDateString(), 
+        //     now()->subMonth()->endOfMonth()->toDateString()
+        // ])
+        // ->select('instrument_id') // Ensures only one value per instrument_id
+        // ->groupBy('instrument_id') // Groups by unique instruments
+        // ->pluck('instrument_id')
+        // ->sum();
+
+        Instrument::selectRaw('operation_status, COUNT(*) as count')
+        ->groupBy('operation_status')
+        ->pluck('count', 'operation_status');
     
-        return view('superadmin.dashboard', compact('lab_count', 'pi_count', 'student_count', 'total_instrument','total_booking','total_instrumentcategory'));
+
+    // $currentMonthSum = $currentMonthData->sum('amount');
+
+   
+        $counts = Instrument::selectRaw('operation_status, COUNT(*) as count')
+        ->groupBy('operation_status')
+        ->pluck('count', 'operation_status');
+      
+        $topInstruments = BookingInstrument::with('instrument')->select('instrument_id', DB::raw('COUNT(*) as total_bookings'))
+        ->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
+        ->groupBy('instrument_id')
+        ->orderByDesc('total_bookings')
+        ->limit(10)
+        ->get();
+        // dd($topInstruments);
+
+        $instrumentSummary = Instrument::with('instrumentsCategory')->select(
+            'category_type',
+            DB::raw('COUNT(*) as total_instruments'),
+            DB::raw('SUM(CASE WHEN operation_status = "working" THEN 1 ELSE 0 END) as working_instruments')
+        )
+        ->groupBy('category_type')
+        // ->limit(10)
+        ->get();
+
+        // dd($instrumentSummary); 
+       
+        // dd($allBookings);
+
+    
+        return view('superadmin.dashboard', compact('lab_count', 'pi_count', 'student_count', 
+        'total_instrument','total_booking','total_instrumentcategory','allBookings','counts','topInstruments','instrumentSummary'));
  
     
 
@@ -63,7 +126,7 @@ public function hs_dashboard(){
 {
 
  
-    $request->validate([
+   $validate=$request->validate([
         'first_name' => 'required|string|max:100',
         'email' => 'required|email|unique:users,email',
         'last_name' => 'nullable|string|max:50',
@@ -78,64 +141,12 @@ public function hs_dashboard(){
         'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
+    $data=$request->all();
+    $pi =$this->piRepository->create($data);
 
-
-   
-    DB::beginTransaction(); // Start Transaction
-
-    try {
-        // Handle Profile Photo Upload
-        $profile = null;
-        if ($request->hasFile('profile_photo')) {
-            $file = $request->file('profile_photo');
-            $imageName = Str::slug($request->first_name) . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $destinationPath = public_path('images/pi/images/');
-
-            if (!File::exists($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true, true);
-            }
-
-            $file->move($destinationPath, $imageName);
-            $profile = 'images/pi/images/' . $imageName; // Store relative path
-        }
-
-        // Create User
-        $user = new User();
-        $user->name = $request->first_name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->email); 
-        $user->type = 'pi';
-        $user->profile_name = $profile;
-        $user->save();
-
-        // Create PIUserMeta
-        $piUserMeta = new PIUserMeta();
-        $piUserMeta->pi_id = $user->id; 
-        $piUserMeta->title = $request->title;
-        $piUserMeta->address = $request->office_address;
-        $piUserMeta->last_name = $request->last_name;
-        $piUserMeta->department = $request->department;
-        $piUserMeta->designation = $request->designation;
-        $piUserMeta->alt_email = $request->alt_email;
-        $piUserMeta->phone_number = $request->phone;
-        $piUserMeta->mobile_number = $request->mobile;
-        $piUserMeta->lab_number = $request->lab_room;
-        $piUserMeta->specialization = $request->specialization;
-        $piUserMeta->academica = $request->qualification;
-        $piUserMeta->date_of_joining = $request->date_of_joining;
-        $piUserMeta->status = "active";
-        $piUserMeta->action =  '1';
-        $piUserMeta->login_status = "0";
-        $piUserMeta->save();
-
-        DB::commit(); // Commit the transaction
 
         return redirect()->route('alldetails_pi')->with('success', 'PI Metadata added successfully.');
-    } catch (\Exception $e) {
-        dd($e);
-        DB::rollBack(); // Rollback on error
-        return redirect()->back()->with('error', 'Error saving PI Metadata: ' . $e->getMessage());
-    }
+    
 }
 
 
@@ -145,8 +156,8 @@ public function hs_viewallpi(){
     $allpi = User::with('pi')->where('type', 'pi')->paginate(10);
 
     $pi_count = PIUserMeta::count(); 
-    $active_pi = PIUserMeta::where('status', 'active')->count();
-    $inactive_pi = PIUserMeta::where('status', 'inactive')->count();
+    $active_pi = User::where('status', 'active')->where('type','pi')->count();
+    $inactive_pi = User::where('status', 'inactive')->where('type','pi')->count();
      return view('superadmin.pages.pi.piList',['allpi'=>$allpi,'pi_count'=>$pi_count,'active_pi'=>$active_pi,'inactive_pi'=>$inactive_pi]);
 }
 
@@ -163,4 +174,82 @@ public function hs_viewpi ($id){
 
 }
 
+
+
+
+public function hs_editpi($id){ 
+
+    // $pi = User::with('pi')->where('id',$id)->first();
+    $pi =$this->piRepository->find($id);
+    return view('superadmin.pages.pi.updatePi',['pi'=>$pi]);
 }
+
+
+public function hs_updatepi(Request $request){
+    // dd($request->all()); 
+    $validate=$request->validate([
+        'pi_id'=>'required',
+        'first_name' => 'required|string|max:100',
+        'email' =>       'required|email',
+        'last_name' => 'nullable|string|max:50',
+        'department' => 'nullable|string|max:100',
+        'designation' => 'nullable|string|max:100',
+        'alt_email' => 'nullable|email|max:100',
+        'phone_number' => 'nullable|string|max:15',
+        'mobile' => 'nullable|string|max:15',
+        'lab_room' => 'required|string',
+        'specialization' => 'required|string|max:255',
+        'qualification' => 'required|string|max:255',
+        'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+    $data=$request->all();
+    $pi =$this->piRepository->update($request->pi_id,$data);
+    return redirect()->route('alldetails_pi')->with('success', 'PI Metadata added successfully.');
+}
+
+
+
+
+public function hs_piserach(Request $request)
+{
+    $query = User::with('pi')->where('type', 'pi'); // Start query with relation & type filter
+
+    if ($request->filled('search')) {
+        $search = $request->search; 
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%")
+              ->orWhere('email', 'like', "%{$search}%");
+        });
+
+        // if ($request->filled('status') || $request->status !== 'All') {
+        //     $query->where('status', $request->status); // Direct match for ENUM field
+
+        // }
+
+        $users = $query->get(); // Prevent duplicate records
+
+        // dd($users);
+        return response()->json($users);
+    }
+
+    if ($request->filled('status') && $request->status !== 'all') {
+        
+        $query->where('status', $request->status); // Direct match for ENUM field
+    }else{
+    
+        $users = $query->get(); // Prevent duplicate records
+
+        // dd($users);
+        return response()->json($users);
+    }
+
+    $users = $query->get(); // Prevent duplicate records
+
+    return response()->json($users); // Return results as JSON
+}
+
+
+
+
+
+} 

@@ -22,7 +22,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-danger bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Instruments Down</span>
-                  <span class="font-bold text-2xl text-ternary">3</span>
+                  <span class="font-bold text-2xl text-ternary">0</span>
               </div>
               <div>
                   <i class="fa fa-triangle-exclamation text-4xl text-danger"></i>
@@ -33,7 +33,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-warning bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Pending Services</span>
-                  <span class="font-bold text-2xl text-ternary">5</span>
+                  <span class="font-bold text-2xl text-ternary">0</span>
               </div>
               <div>
                   <i class="fa fa-wrench text-4xl text-warning"></i>
@@ -55,7 +55,7 @@
           <div class="w-full border-[1px] border-t-[4px] border-ternary/20 border-t-primary bg-white flex gap-2 items-center justify-between p-4">
               <div class="flex flex-col gap-2">
                   <span class="font-semibold text-ternary/70 text-md">Today's Bookings</span>
-                  <span class="font-bold text-2xl text-ternary">15</span>
+                  <span class="font-bold text-2xl text-ternary">0</span>
               </div>
               <div>
                   <i class="fa fa-calendar-day text-4xl text-primary"></i>
@@ -97,7 +97,6 @@
                 <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Manufacturer</td>
                 <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Location</td>
                 <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Status</td>
-                <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Last Calibration</td>
                 <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Action</td>
             </tr>
 
@@ -125,14 +124,20 @@
                     <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm"> {{ $instrument->purchaseInformation->manufacture_name ?? 'Not Specified' }}</td>
                     <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">Lab {{ $instrument->lab_id }}</td>
                     <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">
+                    @if ($instrument->operation_status === 'working')
                         <span class="bg-success/10 text-success px-2 py-1 rounded-[3px] font-bold">Available</span>
-                        <!-- <span class="bg-warning/10 text-warning px-2 py-1 rounded-[3px] font-bold">In Use</span> -->
+                    @elseif ($instrument->operation_status === 'under maintainance') 
+                        <span class="bg-danger/10 text-danger px-2 py-1 rounded-[3px] font-bold">Maintenance</span>
+                    @else
+                        <span class="bg-warning/10 text-warning px-2 py-1 rounded-[3px] font-bold">In Use</span>
+                    @endif
+
                         <!-- <span class="bg-danger/10 text-danger px-2 py-1 rounded-[3px] font-bold">Maintenance</span> -->
                     </td>
-                    <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm"></td>
+                  
                     <td class="border-[2px] border-secondary/40 px-4 py-1 text-ternary/80 font-medium text-sm">
                         <div class="flex gap-2 items-center">
-                            <a href="{{route('create_instrument')}}" title="Edit" class="bg-primary/10 text-primary h-6 w-8 flex justify-center items-center rounded-[3px] hover:bg-primary hover:text-white transition ease-in duration-2000">
+                            <a href="{{ route('superadmin.updateinstrument', ['id' => $instrument->id]) }}" title="Edit" class="bg-primary/10 text-primary h-6 w-8 flex justify-center items-center rounded-[3px] hover:bg-primary hover:text-white transition ease-in duration-2000">
                                 <i class="fa fa-pen"></i>
                             </a>
                             <a href=" {{ route('superadmin.view_instrument', ['id' => $instrument->id]) }}"  title="View Details" class="bg-success/10 text-success h-6 w-8 flex justify-center items-center rounded-[3px] hover:bg-success hover:text-white transition ease-in duration-2000">

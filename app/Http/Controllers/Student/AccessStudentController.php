@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\PIUserMeta;
 use App\Models\StudentUserMeta;
+use App\Models\BookingInstrument;
 
 class AccessStudentController extends Controller
 {
@@ -15,6 +16,13 @@ class AccessStudentController extends Controller
      
         $userId = auth()->id();
         $student = User::with(['student.piname','student.pideatils'])->where('id',$userId)->first();
-        return view('student.dashboard',['student'=>$student]);
+        $bookings = BookingInstrument::with('instrument')
+        ->where('user_id', $userId)
+        ->orderBy('created_at', 'desc') // Order by latest bookings first
+        ->paginate(10);
+
+  
+    //  return view('superadmin.pages.student.viewStudentDashboard',['student'=>$student,'bookings'=>$bookings]);
+        return view('student.dashboard',['student'=>$student,'bookings'=>$bookings]);
     }
 }

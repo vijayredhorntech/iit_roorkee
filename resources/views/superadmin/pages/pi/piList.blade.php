@@ -64,15 +64,15 @@
                     </button>
             </div>
             <div class="flex items-center gap-2">
-            <input type="text" name="search" required placeholder="Search PI" class="px-2 py-1 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000"/>
-            <select name="status" required class="px-2 py-1 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
-                <option value="All">All Status</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
+            <input type="text" name="search" id="searchpi" required placeholder="Search PI" class="px-2 py-1 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000"/>
+            <select name="status" id="status" required class="px-2 py-1 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000">
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
             </select>
             </div>
         </div>
-        <table class="w-full border-[2px] border-secondary/40 border-collapse mt-4">
+        <table class="w-full border-[2px] border-secondary/40 border-collapse mt-4" id="piTable">
     <tr>
         <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Sr. No.</td>
         <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Name</td>
@@ -83,7 +83,10 @@
         <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Action</td>
     </tr>
 
-
+    
+    
+    <!-- <div id="resultContainer"></div> -->
+    <div class="mainContainer"> 
     @forelse($allpi as $pi)
  
                 <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
@@ -97,8 +100,8 @@
                     {{ $pi->pi->department ?? 'Not Specified' }}
                 </td>
                 <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">
-                    <span class="{{ $pi->pi->status == 'active' ? 'bg-success/20 text-success' : 'bg-danger/20 text-danger' }} px-2 py-0.5 rounded-full text-xs">
-                        {{ $pi->pi->status == 'active' ? 'Active' : 'Inactive' }}
+                    <span class="{{ $pi->status == 'active' ? 'bg-success/20 text-success' : 'bg-danger/20 text-danger' }} px-2 py-0.5 rounded-full text-xs">
+                        {{ $pi->status == 'active' ? 'Active' : 'Inactive' }}
                     </span>
                 </td>
                 <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">
@@ -109,7 +112,7 @@
                             <i class="fa fa-eye text-xs"></i>
                         </a>
 
-                        <a href="{{ route('create_pi', ['id' => $pi->id]) }}" title="Edit" 
+                        <a href="{{ route('edit_pi.details', ['id' => $pi->id]) }}" title="Edit" 
                         class="bg-warning/20 text-warning h-6 w-6 flex justify-center items-center rounded-[3px] 
                         hover:bg-warning hover:text-white cursor-pointer transition ease-in duration-2000">
                             <i class="fa fa-pen text-xs"></i>
@@ -131,6 +134,7 @@
         </td>
     </tr>
 @endforelse
+</div>
 
 
 </table>
@@ -148,4 +152,117 @@
         </div>
     </div>
 </div>
+
+
+<script>
+  $(document).ready(function () {
+    function fetchResults() {
+        let searchVal = $('#searchpi').val().trim();
+        let statusVal = $('#status').val();
+        let tableBody = $('#piTable tbody'); // Adjust selector based on actual table ID
+
+        // AJAX Request
+        $.ajax({
+            url: "{{ route('pi.serach') }}", // Corrected route name
+            type: 'POST',
+            data: {
+                search: searchVal,
+                status: statusVal,
+                _token: $('meta[name="csrf-token"]').attr('content') // CSRF token for security
+            },
+            dataType: 'json',
+           success: function (response) {
+
+    let tableBody = $("#piTable tbody");
+    tableBody.empty(); // Clear previous records properly
+
+    let uniqueIds = new Set(); // Track unique IDs to avoid duplication
+
+    if (response.length > 0) {
+        let row = "";
+        $.each(response, function (index, pi) {
+            console.log("Processing ID:", pi.id); // Debugging each record
+
+            if (!uniqueIds.has(pi.id)) { // Ensure unique records
+                uniqueIds.add(pi.id);
+
+                let statusClass = pi.status === 'active' ? 'bg-success/20 text-success' : 'bg-danger/20 text-danger';
+
+                row += `
+                    <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-200">
+                        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">${uniqueIds.size}</td>
+                        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm text">${pi.name}</td>
+                        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">${pi.email}</td>
+                        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">${pi.pi?.phone_number ?? 'N/A'}</td>
+                        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">${pi.pi?.department ?? 'Not Specified'}</td>
+                        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">
+                            <span class="${statusClass} px-2 py-0.5 rounded-full text-xs">
+                                ${pi.status === 'active' ? 'Active' : 'Inactive'}
+                            </span>
+                        </td>
+                        <td class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm">
+                            <div class="flex gap-2">
+                                <a href="/super-admin/view_pi/${pi.id}" title="View Details" 
+                                class="bg-primary/20 text-primary h-6 w-6 flex justify-center items-center rounded-[3px] 
+                                hover:bg-primary hover:text-white cursor-pointer transition ease-in duration-200">
+                                    <i class="fa fa-eye text-xs"></i>
+                                </a>
+
+                                   <a href="/super-admin/edit/${pi.id}" title="Edit" 
+                                class="bg-warning/20 text-warning h-6 w-6 flex justify-center items-center rounded-[3px] 
+                                hover:bg-warning hover:text-white cursor-pointer transition ease-in duration-200">
+                                    <i class="fa fa-pen text-xs"></i>
+                                </a>
+
+                                <a href="/super-admin/user-login/${pi.id}" title="Login" 
+                                class="bg-primary/20 text-primary h-6 w-6 flex justify-center items-center rounded-[3px] 
+                                hover:bg-primary hover:text-white cursor-pointer transition ease-in duration-200">
+                                    <i class="fa fa-lock text-xs"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            } else {
+                console.warn("Duplicate detected and skipped:", pi.id);
+            }
+        });
+
+        tableBody.append(row); // Append all rows at once
+    } else {
+        tableBody.append(`
+            <tr>
+                <td colspan="7" class="border-[2px] border-secondary/40 px-4 py-1.5 text-ternary/80 font-medium text-sm text-center">
+                    No records found
+                </td>
+            </tr>
+        `);
+    }
+}
+,
+            error: function (xhr, status, error) {
+                console.error('AJAX Error:', error);
+            }
+        });
+    }
+
+    // Trigger AJAX on search input (only if at least 3 characters) and status change
+    $('#searchpi').on('keyup', function () {
+        let searchVal = $(this).val().trim();
+        if (searchVal.length >= 3 || searchVal.length === 0) { // Prevent unnecessary requests
+            fetchResults();
+        }
+    });
+
+    $('#status').on('change', fetchResults);
+});
+
+
+</script>
+
 @endsection
+
+
+   
+<!-- Placeholder for displaying results -->
+<!-- <div id="resultContainer"></div> -->

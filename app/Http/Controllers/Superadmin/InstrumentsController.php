@@ -17,12 +17,19 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Models\InstrumentAccessory;
 use App\Models\BookingInstrument;
+use App\Contracts\InstrumentRepositoryInterface;
 
 class InstrumentsController extends Controller
 {
 
+    protected $instrumentRepo;
 
+    public function __construct(InstrumentRepositoryInterface $instrumentRepo)
+    {
+        $this->instrumentRepo = $instrumentRepo;
+    }
 
+ 
 
     /***Create Instrument Category ******/
     public function hs_create_instrumentcategory()
@@ -139,81 +146,82 @@ public function hs_Instrumentstore(Request $request)
     ]);
 
 
-    DB::beginTransaction();
-    try {
-
-    // File Uploads
-    $instrumentPhotos = [];
-    if ($request->hasFile('instrument_photos')) {
-        foreach ($request->file('instrument_photos') as $photo) {
-            $instrumentPhotos[] = $this->uploadFile($photo, 'instruments/images', $request->name);
-        }
+    $data=$this->instrumentRepo->createInstrument($request->all());
+    
+    if($data){
+        return redirect()->route('superadmin.instrument_list')->with('success', 'Instrument added successfully!');
     }
+   
+    // DB::beginTransaction();
+    // try {
 
-    $operation_manual = $request->hasFile('operation_manual') ? $this->uploadFile($request->file('operation_manual'), 'operation_manual', $request->name) : null;
-    $service_manual = $request->hasFile('service_manual') ? $this->uploadFile($request->file('service_manual'), 'service_manual', $request->name) : null;
-    $additional_documents = $request->hasFile('additional_documents') ? $this->uploadFile($request->file('additional_documents'), 'additional_documents', $request->name) : null;
+    // // File Uploads
+    // $instrumentPhotos = [];
+    // if ($request->hasFile('instrument_photos')) {
+    //     foreach ($request->file('instrument_photos') as $photo) {
+    //         $instrumentPhotos[] = $this->uploadFile($photo, 'instruments/images', $request->name);
+    //     }
+    // }
 
-    // Save Instrument
-    $instrument = new Instrument();
-    $instrument->name = $request->name;
-    $instrument->model_number = $request->model_number;
-    $instrument->serial_number = $request->serial_number;
-    $instrument->asset_id = $request->asset_id;
-    $instrument->category_type = $request->category_id;
-    $instrument->lab_id = $request->lab_id;
-    $instrument->operation_status = $request->operating_status;
-    $instrument->per_hour_cost = $request->perhourcost;
-    $instrument->minimum_booking_duration = $request->minimumbookingduration;
-    $instrument->maximum_booking_duration = $request->maximum_booking_duration;
-    $instrument->description = $request->description;
-    $instrument->save();
+    // $operation_manual = $request->hasFile('operation_manual') ? $this->uploadFile($request->file('operation_manual'), 'operation_manual', $request->name) : null;
+    // $service_manual = $request->hasFile('service_manual') ? $this->uploadFile($request->file('service_manual'), 'service_manual', $request->name) : null;
+    // $additional_documents = $request->hasFile('additional_documents') ? $this->uploadFile($request->file('additional_documents'), 'additional_documents', $request->name) : null;
 
-    // Save Purchase Information
-    $purchase = new PurchaseInformation();
-    $purchase->instrument_id = $instrument->id;
-    $purchase->manufacture_name = $request->manufacturer_name;
-    $purchase->vendor_name = $request->serial_number; // Verify if this is correct
-    $purchase->purchase_order_number = $request->po_number;
-    $purchase->purchase_date = $request->purchase_date;
-    $purchase->cost = $request->cost;
-    $purchase->funding_source = $request->funding_source;
-    $purchase->save();
+    // // Save Instrument
+    // $instrument = new Instrument();
+    // $instrument->name = $request->name;
+    // $instrument->model_number = $request->model_number;
+    // $instrument->serial_number = $request->serial_number;
+    // $instrument->asset_id = $request->asset_id;
+    // $instrument->category_type = $request->category_id;
+    // $instrument->lab_id = $request->lab_id;
+    // $instrument->operation_status = $request->operating_status;
+    // $instrument->per_hour_cost = $request->perhourcost;
+    // $instrument->minimum_booking_duration = $request->minimumbookingduration;
+    // $instrument->maximum_booking_duration = $request->maximum_booking_duration;
+    // $instrument->description = $request->description;
+    // $instrument->save();
 
-    // Save Service Engineer Information
-    $serviceEngineer = new ServiceEngineerInformation();
-    $serviceEngineer->instrument_id = $instrument->id;
-    $serviceEngineer->service_engineer_name = $request->engineer_name;
-    $serviceEngineer->service_engineerphone_number = $request->engineer_phone;
-    $serviceEngineer->service_engineeremail = $request->engineer_email;
-    $serviceEngineer->company = $request->engineer_company;
-    $serviceEngineer->address = $request->engineer_address;
-    $serviceEngineer->save();
+    // // Save Purchase Information
+    // $purchase = new PurchaseInformation();
+    // $purchase->instrument_id = $instrument->id;
+    // $purchase->manufacture_name = $request->manufacturer_name;
+    // $purchase->vendor_name = $request->serial_number; // Verify if this is correct
+    // $purchase->purchase_order_number = $request->po_number;
+    // $purchase->purchase_date = $request->purchase_date;
+    // $purchase->cost = $request->cost;
+    // $purchase->funding_source = $request->funding_source;
+    // $purchase->save();
 
-    // Save Warranty Information
-    $warranty = new WarrantyInformation();
-    $warranty->instrument_id = $instrument->id;
-    $warranty->manufacturing_date = $request->manufacturing_date;
-    $warranty->installation_date = $request->installation_date;
-    $warranty->warranty_period_months = $request->warranty_period;
-    $warranty->next_service_due_date = $request->next_service_date;
-    $warranty->save();
+    // // Save Service Engineer Information
+    // $serviceEngineer = new ServiceEngineerInformation();
+    // $serviceEngineer->instrument_id = $instrument->id;
+    // $serviceEngineer->service_engineer_name = $request->engineer_name;
+    // $serviceEngineer->service_engineerphone_number = $request->engineer_phone;
+    // $serviceEngineer->service_engineeremail = $request->engineer_email;
+    // $serviceEngineer->company = $request->engineer_company;
+    // $serviceEngineer->address = $request->engineer_address;
+    // $serviceEngineer->save();
 
-    // Save Instrument Documents
-    $instrumentDoc = new InstrumentDocument();
-    $instrumentDoc->instrument_id = $instrument->id; // Fixed incorrect assignment
-    $instrumentDoc->instrument_photos = json_encode($instrumentPhotos);
-    $instrumentDoc->operation_manual = $operation_manual;
-    $instrumentDoc->service_manual = $service_manual;
-    $instrumentDoc->additional_documents = $additional_documents;
-    $instrumentDoc->video_links = $request->video_links;
-    $instrumentDoc->save();
-    DB::commit();
-    return redirect()->route('superadmin.instrument_list')->with('success', 'Instrument added successfully!');
-}catch (\Exception $e) {
-    DB::rollBack(); // ❌ Rollback if any error occurs
-    return response()->json(['error' => 'Something went wrong', 'details' => $e->getMessage()], 500);
-}
+    // // Save Warranty Information
+    // $warranty = new WarrantyInformation();
+    // $warranty->instrument_id = $instrument->id;
+    // $warranty->manufacturing_date = $request->manufacturing_date;
+    // $warranty->installation_date = $request->installation_date;
+    // $warranty->warranty_period_months = $request->warranty_period;
+    // $warranty->next_service_due_date = $request->next_service_date;
+    // $warranty->save();
+
+    // // Save Instrument Documents
+    // $instrumentDoc = new InstrumentDocument();
+    // $instrumentDoc->instrument_id = $instrument->id; // Fixed incorrect assignment
+    // $instrumentDoc->instrument_photos = json_encode($instrumentPhotos);
+    // $instrumentDoc->operation_manual = $operation_manual;
+    // $instrumentDoc->service_manual = $service_manual;
+    // $instrumentDoc->additional_documents = $additional_documents;
+    // $instrumentDoc->video_links = $request->video_links;
+    // $instrumentDoc->save();
+    // DB::commit();
 }
 
 
@@ -299,23 +307,7 @@ public function hs_accessoriesstore(Request $request){
 }
 
 
-/**
- * Handles file uploads efficiently.
- */
-private function uploadFile($file, $folder, $name)
-{
-    $filename = Str::slug($name) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-    $destinationPath = public_path("images/$folder/");
 
-    // Ensure directory exists
-    if (!File::exists($destinationPath)) {
-        File::makeDirectory($destinationPath, 0755, true, true);
-    }
-
-    // Move file and return the stored path
-    $file->move($destinationPath, $filename);
-    return "images/$folder/$filename";
-}
 
 
 
@@ -337,6 +329,173 @@ public function hs_view_categoryins($id){
     $catinst = Instrument::with('instrumentaccessoriesInformations')->where('category_type',$id)->paginate(10);
     return view('superadmin.pages.Instruments.categoryinstlist',['instruments'=>$catinst]); 
 
+}
+
+
+/*****update form ********/
+  public function hs_updateinstrument($id){
+    
+    $instrumentCategories = InstrumentsCategory::where('status', 1)->get(); 
+    $labs = Lab::where('status', 'active')->get(); 
+    $instruments=Instrument::with('purchaseInformation',
+    'instrumentDocument',
+    'serviceengineerInformation',
+    'labInformation',
+    'instrumentsCategory',
+    'warrantyInformation',
+    'instrumentaccessoriesInformations')->where('id',$id)->first(); 
+    // dd($labs);
+    return view('superadmin.pages.Instruments.updateinstrument', [
+        'instrumentCategories' => $instrumentCategories,
+        'labs' => $labs,
+        'instruments' =>$instruments
+    ]); 
+  
+  }
+
+  public function hs_updateinstrumentstore(Request $request){
+
+    // dd($request->all()); 
+    $validator = Validator::make($request->all(), [
+        'instrument_id' => 'required',
+        'name' => 'required|string|max:255',
+        'model_number' => 'required|string|max:255',
+        'serial_number' => 'required|string|max:255',
+        'asset_id' => 'nullable|string|max:255',
+        'description' => 'nullable|string',
+        
+        // Purchase Information
+        'manufacturer_name' => 'required|string|max:255',
+        'po_number' => 'required|string|max:255',
+        'purchase_date' => 'required|date',
+        'cost' => 'required|numeric|min:0',
+        'funding_source' => 'required|string|max:255',
+
+        // Service Engineer Information
+        'engineer_name' => 'required|string|max:255',
+        'engineer_phone' => 'required|string|max:20',
+        'engineer_email' => 'required|email|max:255',
+        'engineer_company' => 'nullable|string|max:255',
+        'engineer_address' => 'nullable|string|max:500',
+
+        // Warranty Information
+        'manufacturing_date' => 'required|date',
+        'installation_date' => 'required|date',
+        'warranty_period' => 'required|integer|min:1',
+        'next_service_date' => 'required|date|after_or_equal:installation_date',
+
+        // Documents & Files
+        'video_links' => 'nullable|string',
+        'instrument_photos.*' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+        'operation_manual' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:5120',
+        'service_manual' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:5120',
+        'additional_documents' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:5120',
+    ]);
+
+    DB::beginTransaction();
+    try {
+
+    // File Uploads
+    $instrumentPhotos = [];
+    if ($request->hasFile('instrument_photos')) {
+        foreach ($request->file('instrument_photos') as $photo) {
+            $instrumentPhotos[] = $this->uploadFile($photo, 'instruments/images', $request->name);
+        }
+    }
+
+    $operation_manual = $request->hasFile('operation_manual') ? $this->uploadFile($request->file('operation_manual'), 'operation_manual', $request->name) : null;
+    $service_manual = $request->hasFile('service_manual') ? $this->uploadFile($request->file('service_manual'), 'service_manual', $request->name) : null;
+    $additional_documents = $request->hasFile('additional_documents') ? $this->uploadFile($request->file('additional_documents'), 'additional_documents', $request->name) : null;
+
+    // Save Instrument
+    $instrument = Instrument::where('id',$request->instrument_id)->first();
+    // dd($instrument);
+    $instrument->name = $request->name;
+    $instrument->model_number = $request->model_number;
+    $instrument->serial_number = $request->serial_number;
+    $instrument->asset_id = $request->asset_id;
+    $instrument->category_type = $request->category_id;
+    $instrument->lab_id = $request->lab_id;
+    $instrument->category_type = $request->category_id;
+    $instrument->lab_id = $request->lab_id;
+    $instrument->operation_status = $request->operating_status;
+    $instrument->per_hour_cost = $request->perhourcost;
+    $instrument->minimum_booking_duration = $request->minimumbookingduration;
+    $instrument->maximum_booking_duration = $request->maximum_booking_duration;
+    $instrument->description = $request->description;
+    $instrument->save();
+
+    // Save Purchase Information
+    // $purchase = new PurchaseInformation();
+    $purchase = PurchaseInformation::where('instrument_id',$request->instrument_id)->first();
+    // $purchase->instrument_id = $instrument->id;
+    $purchase->manufacture_name = $request->manufacturer_name;
+    $purchase->vendor_name = $request->serial_number; // Verify if this is correct
+    $purchase->purchase_order_number = $request->po_number;
+    $purchase->purchase_date = $request->purchase_date;
+    $purchase->cost = $request->cost;
+    $purchase->funding_source = $request->funding_source;
+    $purchase->save();
+
+    // Save Service Engineer Information
+    // $serviceEngineer = new ServiceEngineerInformation();
+    $serviceEngineer = ServiceEngineerInformation::where('instrument_id',$request->instrument_id)->first();
+    // $serviceEngineer->instrument_id = $instrument->id;
+    $serviceEngineer->service_engineer_name = $request->engineer_name;
+    $serviceEngineer->service_engineerphone_number = $request->engineer_phone;
+    $serviceEngineer->service_engineeremail = $request->engineer_email;
+    $serviceEngineer->company = $request->engineer_company;
+    $serviceEngineer->address = $request->engineer_address;
+    $serviceEngineer->save();
+
+    // Save Warranty Information
+    $warranty = WarrantyInformation::where('instrument_id',$request->instrument_id)->first();
+    // $warranty = new WarrantyInformation();
+    $warranty->instrument_id = $instrument->id;
+    $warranty->manufacturing_date = $request->manufacturing_date;
+    $warranty->installation_date = $request->installation_date;
+    $warranty->warranty_period_months = $request->warranty_period;
+    $warranty->next_service_due_date = $request->next_service_date;
+    $warranty->save();
+
+    // Save Instrument Documents
+    // $instrumentDoc = new InstrumentDocument();
+    $instrumentDoc = InstrumentDocument::where('instrument_id',$request->instrument_id)->first();
+    $instrumentDoc->instrument_id = $instrument->id; // Fixed incorrect assignment
+    $instrumentDoc->instrument_photos = json_encode($instrumentPhotos);
+    $instrumentDoc->operation_manual = $operation_manual;
+    $instrumentDoc->service_manual = $service_manual;
+    $instrumentDoc->additional_documents = $additional_documents;
+    $instrumentDoc->video_links = $request->video_links;
+    $instrumentDoc->save();
+    DB::commit();
+    return redirect()->route('superadmin.instrument_list')->with('success', 'Instrument added successfully!');
+}catch (\Exception $e) {
+    DB::rollBack(); // ❌ Rollback if any error occurs
+    return response()->json(['error' => 'Something went wrong', 'details' => $e->getMessage()], 500);
+}
+
+
+  }
+
+
+  
+    /**
+ * Handles file uploads efficiently.
+ */
+private function uploadFile($file, $folder, $name)
+{
+    $filename = Str::slug($name) . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+    $destinationPath = public_path("images/$folder/");
+
+    // Ensure directory exists
+    if (!File::exists($destinationPath)) {
+        File::makeDirectory($destinationPath, 0755, true, true);
+    }
+
+    // Move file and return the stored path
+    $file->move($destinationPath, $filename);
+    return "images/$folder/$filename";
 }
 
 

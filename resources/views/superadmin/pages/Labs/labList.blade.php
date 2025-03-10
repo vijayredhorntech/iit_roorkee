@@ -69,12 +69,12 @@
         <!-- Sample Data Row -->
 
         <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">{{$leb->name}}</td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">{{$leb->department}} </td>
+            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">{{$leb->name ?? 'N/A' }}</td>
+            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">{{$leb->department ?? 'N/A'}} </td>
             <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">{{$leb->building}},  {{$leb->floor}}, {{$leb->room_number}} </td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm"> {{$leb->manager_info->name}}  </td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm"> {{$leb->contact_number}}  </td>
-            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm"> {{$leb->working_hours}}  </td>
+            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm"> {{$leb->manager_info->name ?? ' '}}  </td>
+            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm"> {{$leb->contact_number ?? ' '}}  </td>
+            <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm"> {{$leb->working_hours ?? ' '}}  </td>
             <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">
                 <span class="px-2 py-1 bg-success/20 text-success rounded-full text-xs">Active</span>
             </td>

@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Super Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +19,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <style>
             ::-webkit-scrollbar {
             width: 2px;
@@ -276,7 +277,7 @@
                 </a>
             </ul>
         </div>
-        <a href="{{route('get_bookings')}}">
+        <a href="{{route('get.bookings')}}">
             <div class=" {{Route::currentRouteName()==='book_instrument'?'bg-primaryLight/90 border-[2px] border-white text-primary':'bg-primary text-white/90 hover:bg-primaryLight/10'}} w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative transition ease-in duration-2000">
                 <div class="flex items-center">
                     <i class="fa fa-ticket mr-2 text-sm"></i>
@@ -399,7 +400,7 @@
                         <div class="h-16 w-12 bg-primary absolute top-1 -right-6 rotate-45"></div>
                     </li>
                 </a>
-                <a href="{{route('booking_requests')}}"><li class="{{request()->is('booking/requests') ? 'bg-primaryLight/10' : 'bg-primary'}} text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
+                <a href="{{route('get.bookings')}}"><li class="{{request()->is('booking/requests') ? 'bg-primaryLight/10' : 'bg-primary'}} text-white/90 w-full flex justify-between items-center py-1 px-4 rounded-[3px] relative hover:bg-primaryLight/10 transition ease-in duration-2000">
                         <div class="flex items-center">
                             <i class="fa fa-clock mr-2 text-sm"></i>
                             <span class="text-lg font-medium">Requests</span>

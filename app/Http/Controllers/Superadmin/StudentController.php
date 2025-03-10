@@ -54,6 +54,7 @@ class StudentController extends Controller
             // service for create student 
 
             $studentCreated = $this->studentService->createStudent(auth()->user(), $request->all());
+   
           if($studentCreated){
 
             $user = auth()->user(); // Get the logged-in user
@@ -70,9 +71,6 @@ class StudentController extends Controller
         
            
 
-
-           
-        
     }
 
     /*****View sutdent *******/
@@ -80,9 +78,10 @@ class StudentController extends Controller
    public function hs_viewallstudent(){
 
     // $students = User::with('student')->where('type', 'student')->get();
+     $pi=User::with('pi')->where('type','pi')->get(); 
     
     $students = User::with(['student.piname','student.pideatils'])->where('type', 'student')->paginate(10);
-    return view('superadmin.pages.student.studentList', ['students' => $students]);
+    return view('superadmin.pages.student.studentList', ['students' => $students,'pilist'=>$pi]);
   
    }
 
@@ -101,6 +100,89 @@ class StudentController extends Controller
 
   
      return view('superadmin.pages.student.viewStudentDashboard',['student'=>$student,'bookings'=>$bookings]);
+  }
+
+
+
+
+  public function hs_editstudent($id){
+
+    $pi = User::with('pi')->where('type', 'pi')->get(); 
+    $student = User::with(['student.piname','student.pideatils'])->where('id',$id)->first();
+    return view('superadmin.pages.student.updatestudent',['pilist' => $pi,'student'=>$student]);
+
+  }
+
+  /*****Update function ******/
+  public function hs_studentupdate(Request $request){
+    $validatedData = $request->validate([
+      'student_id'     => 'required',
+      'first_name'     => 'required|string|max:255',
+      'last_name'      => 'required|string|max:255',
+      'student_aid'     => 'required', 
+      'department'     => 'required|string|max:255',
+      'studyyear'      => 'required|integer|min:1|max:6',
+      'email'          => 'required|email',
+      'alt_email'      => 'nullable|email', 
+      'mobile'         => 'required|digits:10|numeric', 
+      'research_area'  => 'nullable|string|max:500', 
+      'address'        => 'required|string|max:500',
+      'profile_photo'  => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
+  ]);
+
+  $studentCreated = $this->studentService->updateStudent(auth()->user(), $request->all());
+  if($studentCreated){
+
+    $user = auth()->user(); // Get the logged-in user
+
+    if ($user->type === "pi") {  
+        return redirect()->route('allpi_student')->with('success', 'Student added successfully.');
+    } else {  
+        return redirect()->route('alldetails_student')->with('success', 'Student added successfully.');
+    }
+  }else{
+    return back()->withErrors(['error' => 'Failed to create student. Please try again.']);
+  }
+
+  }
+
+   /*****Serach Function ******/
+  public function hs_studentserach(Request $request){
+
+    // dd($request->all());
+    $query = User::with('student')->where('type', 'student'); // Start query with relation & type filter
+
+    if ($request->filled('studentid')) {
+        $search = $request->studentid; 
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%");
+        });
+
+        // if ($request->filled('status') || $request->status !== 'All') {
+        //     $query->where('status', $request->status); // Direct match for ENUM field
+
+        // }
+
+        $users = $query->get(); // Prevent duplicate records
+
+        // dd($users);
+        return response()->json($users);
+    }
+
+    if ($request->filled('status') && $request->status !== 'all') {
+        
+        $query->where('status', $request->status); // Direct match for ENUM field
+    }else{
+    
+        $users = $query->get(); // Prevent duplicate records
+
+        // dd($users);
+        return response()->json($users);
+    }
+
+    $users = $query->get(); // Prevent duplicate records
+
+    return response()->json($users); 
   }
    
 }

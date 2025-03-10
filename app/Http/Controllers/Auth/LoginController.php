@@ -21,16 +21,42 @@ class LoginController extends Controller
     
     public function auth_login(Request $request)
     {
+        // // dd($request->all());
         $validated = $request->validate([
             'email' => 'required|email|exists:users,email',
             'password' => 'required',
         ]);
     
+        // dd('heelo');
         if (Auth::attempt($request->only('email', 'password'))) {
+
             return redirect()->route('dashboard')->with('success', 'User login successful');
         }
     
         return redirect()->back()->with('error', 'Invalid credentials');
+
+    //     $credentials = $request->only('email', 'password');
+
+    // // Find user by email before attempting login
+    // $user = User::where('email', $credentials['email'])->first();
+
+    // if (!$user) {
+    //     return redirect()->back()->with('error', 'Invalid credentials');
+    // }
+
+    // // Check if user is 'pi' or 'student' and has login_status = 1
+    // if (in_array($user->type, ['pi', 'student']) && $user->login_status == 1) {
+    //     return redirect()->route('forget.password.change')->with('info', 'Please change your password before logging in.');
+    // }
+
+    // // Attempt login only if password change is not required
+    // if (Auth::attempt($credentials)) {
+    //     if ($user->type === 'superadmin') {
+    //         return redirect()->route('dashboard')->with('success', 'User login successful');
+    //     }
+    //     return redirect()->route('dashboard')->with('success', 'User login successful');
+    // }
+
     }
     
 

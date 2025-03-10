@@ -39,10 +39,7 @@
                       
                     </select>
                 </div>
-                <div class="w-full flex flex-col gap-1">
-                    <label class="font-semibold text-primary">Profile Photo</label>
-                    <input type="file" name="profile_photo" accept="image/*" class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000"/>
-                </div>
+             
 
                 <div class="w-full flex flex-col gap-1">
                     <label class="font-semibold text-primary">First Name <span class="text-danger">*</span></label>
@@ -128,6 +125,11 @@
                     <label class="font-semibold text-primary">Address <span class="text-danger">*</span></label>
                     <textarea name="address" required rows="2" placeholder="Enter address" class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000"></textarea>
                 </div>
+
+                <div class="w-full flex flex-col gap-1">
+                    <label class="font-semibold text-primary">Profile Photo</label>
+                    <input type="file" name="profile_photo" accept="image/*" class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[3px] rounded-tr-[8px] rounded-bl-[8px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000"/>
+                </div>  
             
               
             </div>

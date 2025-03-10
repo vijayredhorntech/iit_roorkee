@@ -54,11 +54,17 @@
             <div class="w-full flex flex-col gap-1">
                 <label class="font-semibold text-primary">Email <span class="text-danger">*</span></label>
                 <input type="email" required  name="email" placeholder="Enter email ....." class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[4px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000"/>
+                @if ($errors->has('building'))
+                    <span class="text-red-500">{{ $errors->first('email') }}</span>
+                @endif
             </div>
             <div class="mt-2"></div>
             <div class="w-full flex flex-col gap-1">
                 <label class="font-semibold text-primary">Password <span class="text-danger">*</span></label>
                 <input type="password" required  name="password" placeholder="Enter password ....." class="px-2 py-2 w-full text-sm font-medium bg-transparent placeholder-primary/70 border-[2px] border-primary/40 rounded-[4px] focus:ring-0 focus:outline-none focus:border-primary transition ease-in duration-2000"/>
+                @if ($errors->has('building'))
+                    <span class="text-red-500">{{ $errors->first('password') }}</span>
+                @endif
             </div>
             <div class="mt-2"></div>
             <input type="submit"  class="w-full mt-8 px-4 py-3 bg-primary/80 border-[2px] border-primary/90 text-white/80 font-semibold hover:bg-primary/90 hover:text-white rounded-[3px] inline-flex items-center justify-center whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 transition ease-in duration-200" value="Sign In">

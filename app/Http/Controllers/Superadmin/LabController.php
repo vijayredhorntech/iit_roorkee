@@ -31,7 +31,7 @@ class LabController extends Controller
             'floor'               => 'required|string|max:255',
             'room_number'         => 'required|string|max:50',
             'lab_type'            => 'required|string', // Restrict values
-            'lab_manager'         => 'required|exists:users,id', // Assuming lab managers are stored in users table
+            'lab_manager'         => 'required', // Assuming lab managers are stored in users table
             'contact_number'      => 'required|string', // Example format: 8/580984998
             'working_hours'       => 'required|string|max:50',
             'max_capacity'        => 'required|integer|min:1|max:500', // Adjust max as needed

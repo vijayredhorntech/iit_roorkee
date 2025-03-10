@@ -49,6 +49,10 @@ Route::prefix('super-admin')->middleware(AdminMiddleware::class)->group(function
         Route::post('/pistore', 'hs_pistore')->name('pi_store');
         Route::get('/view_pi','hs_viewallpi')->name('alldetails_pi');
         Route::get('/view_pi/{id}','hs_viewpi')->name('view_pi.details');
+        Route::get('/edit/{id}','hs_editpi')->name('edit_pi.details');
+        Route::post('/update','hs_updatepi')->name('updatepi_store');
+        Route::post('/search','hs_piserach')->name('pi.serach');
+
     });
 
 
@@ -59,6 +63,10 @@ Route::prefix('super-admin')->middleware(AdminMiddleware::class)->group(function
         Route::post('/studentstore', 'hs_studentstore')->name('student_store');
         Route::get('/view_student', 'hs_viewallstudent')->name('alldetails_student');
         Route::get('/view_student/{id}','hs_viewstudent')->name('view_student.details');
+        Route::get('/edit_student/{id}','hs_editstudent')->name('edit_student.details');
+        Route::post('/student_update','hs_studentupdate')->name('update.student_store');
+        Route::post('/student_search','hs_studentserach')->name('student.serach');
+        
         
     });
 
@@ -70,6 +78,7 @@ Route::prefix('super-admin')->middleware(AdminMiddleware::class)->group(function
         Route::get('/create_lab','hs_labcreate')->name('superadmin.create_lab');
         Route::get('/lab_list', 'hs_lablist')->name('superadmin.lab_list');
         Route::post('/lab_store', 'hs_labstore')->name('superadmin.lab_store');
+        Route::get('/updateLab/{id}','hs_labview')->name('superadmin.labedit');
     });
 
 
@@ -87,19 +96,20 @@ Route::prefix('super-admin')->middleware(AdminMiddleware::class)->group(function
         Route::post('/accessories','hs_accessoriesstore')->name('superadmin.accessory_store');
         Route::get('/view_acceossries/{id}', 'hs_view_acceossries')->name('superadmin.view_acceossries');
         Route::get('/view_catinstrument/{id}', 'hs_view_categoryins')->name('superadmin.viewcategoriesins');
-
+        Route::get('/updateinstrument/{id}','hs_updateinstrument')->name('superadmin.updateinstrument');
+        Route::post('/instrumentupdate_store','hs_updateinstrumentstore')->name('superadmin.instrumentupdate_store');
        
-
+        Route::get('/text','text');
     });
 
 
     Route::controller(BookingController::class)->group(function () {
        
-     Route::get('/getbookings','hs_getbooking')->name('get_bookings'); 
+     Route::get('/getbookings','hs_getbooking')->name('get.bookings'); 
         
     });
 
-    
+ 
 
 });
 
