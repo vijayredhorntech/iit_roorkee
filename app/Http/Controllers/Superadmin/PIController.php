@@ -124,8 +124,6 @@ public function hs_dashboard(){
 
     public function hs_pistore(Request $request)
 {
-
- 
    $validate=$request->validate([
         'first_name' => 'required|string|max:100',
         'email' => 'required|email:rfc,dns|unique:users,email',
@@ -134,7 +132,7 @@ public function hs_dashboard(){
         'designation' => 'nullable|string|max:100',
         'alt_email' => 'nullable|email:rfc,dns|max:100',
         'phone_number' => 'nullable|string|max:15',
-        'mobile' => 'nullable|string|max:15',
+        'mobile' => 'nullable|string|regex:/^[0-9]{10,15}$/',
         'lab_room' => 'required|string',
         'specialization' => 'required|string|max:255',
         'qualification' => 'required|string|max:255',
