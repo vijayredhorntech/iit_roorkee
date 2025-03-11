@@ -63,7 +63,7 @@
             <!-- Profile Photo -->
    
             <div class="flex flex-col items-center gap-3">
-                <img src="{{ isset($pi->profile_name) ? asset($pi->profile_name) : 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=400' }}" 
+                <img src="{{ isset($pi->profile_name) ? asset($pi->profile_name) : asset('assets/images/default-user.jpg') }}" 
                     alt="PI Photo" 
                     class="w-48 h-48 rounded-full object-cover border-4 border-primary/20">
 
@@ -145,6 +145,9 @@
         <td class="border-[2px] border-secondary/40 bg-gray-100 px-4 py-1.5 text-ternary/80 font-bold text-md">Activity</td>
     </tr>
     <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
+        <td colspan="2" class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm text-center">No records found</td>
+    </tr>
+    <!-- <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
         <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">2024-02-15</td>
         <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">Login</td>
     </tr>
@@ -183,7 +186,7 @@
     <tr class="hover:bg-secondary/10 cursor-pointer transition ease-in duration-2000">
         <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">2024-02-28</td>
         <td class="border-[2px] border-secondary/40 px-4 py-2 text-ternary/80 font-medium text-sm">Logout</td>
-    </tr>
+    </tr> -->
     
 </table>
         </div>

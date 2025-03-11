@@ -131,7 +131,7 @@ public function hs_dashboard(){
         'department' => 'nullable|string|max:100',
         'designation' => 'nullable|string|max:100',
         'alt_email' => 'nullable|email:rfc,dns|max:100',
-        'phone_number' => 'nullable|string|regex:/^[0-9]{10,15}$/',
+        'phone' => 'nullable|string|regex:/^[0-9]{10,15}$/',
         'mobile' => 'nullable|string|regex:/^[0-9]{10,15}$/',
         'lab_room' => 'required|string',
         'specialization' => 'required|string|max:255',
@@ -139,8 +139,8 @@ public function hs_dashboard(){
         'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    $data=$request->all();
-    $pi =$this->piRepository->create($data);
+    // $data=$request->all();
+    $pi =$this->piRepository->create($validate);
 
 
         return redirect()->route('alldetails_pi')->with('success', 'PI Metadata added successfully.');
