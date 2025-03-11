@@ -128,11 +128,11 @@ public function hs_dashboard(){
  
    $validate=$request->validate([
         'first_name' => 'required|string|max:100',
-        'email' => 'required|email|unique:users,email',
+        'email' => 'required|email:rfc,dns|unique:users,email',
         'last_name' => 'nullable|string|max:50',
         'department' => 'nullable|string|max:100',
         'designation' => 'nullable|string|max:100',
-        'alt_email' => 'nullable|email|max:100',
+        'alt_email' => 'nullable|email:rfc,dns|max:100',
         'phone_number' => 'nullable|string|max:15',
         'mobile' => 'nullable|string|max:15',
         'lab_room' => 'required|string',
@@ -190,11 +190,11 @@ public function hs_updatepi(Request $request){
     $validate=$request->validate([
         'pi_id'=>'required',
         'first_name' => 'required|string|max:100',
-        'email' =>       'required|email',
+        'email' => 'required|email:rfc,dns|unique:users,email',
         'last_name' => 'nullable|string|max:50',
         'department' => 'nullable|string|max:100',
         'designation' => 'nullable|string|max:100',
-        'alt_email' => 'nullable|email|max:100',
+        'alt_email' => 'nullable|email:rfc,dns|max:100',
         'phone_number' => 'nullable|string|max:15',
         'mobile' => 'nullable|string|max:15',
         'lab_room' => 'required|string',
